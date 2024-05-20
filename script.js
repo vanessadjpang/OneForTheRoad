@@ -108,30 +108,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //To read JSON
 fetch('activities.json')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); // Log the data to the console to verify
-                populateItinerary(data); // Call a function to handle the data
-            })
-            .catch(error => console.error('Error fetching the JSON file:', error));
+  .then(response => response.json())
+  .then(data => {
+    console.log(data); // Log the data to the console to verify
+    populateItinerary(data); // Call a function to handle the data
+  })
+  .catch(error => console.error('Error fetching the JSON file:', error));
 
-            function populateItinerary(itineraryData) {
-                const daysContainer = document.getElementById('daysContainer');
-                itineraryData.forEach(item => {
-                    const dayDiv = document.createElement('div');
-                    dayDiv.classList.add('day');
-                    dayDiv.innerHTML = `
-                        <h3>${item.activity}</h3>
-                        <p><strong>Time:</strong> ${item.time}</p>
-                        <p><strong>Duration:</strong> ${item.duration} hours</p>
-                        <p><strong>Address:</strong> ${item.address}</p>
-                        <p><strong>Transport:</strong> ${item.transport}</p>
-                        <p><strong>Additional Information:</strong> ${item.additionalInformation}</p>
-                        <p><strong>Reservation Required:</strong> ${item.reservationRequired ? 'Yes' : 'No'}</p>
-                    `;
-                    daysContainer.appendChild(dayDiv);
-                });
-            }
+function populateItinerary(itineraryData) {
+  const daysContainer = document.getElementById('daysContainer');
+  itineraryData.forEach(item => {
+    const dayDiv = document.createElement('div');
+    dayDiv.classList.add('day');
+
+    // Parse date and time
+    const date = item.time ? new Date(`${item.date}T${item.time}`) : new Date(item.date);
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+    const formattedTime = item.time ? date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : '';
+
+    let htmlContent = `
+      <h3>${item.activity}</h3>
+      <p><strong>Date</strong> ${formattedDate}</p>`;
+
+    if (item.time !== null) {
+      htmlContent += `<p><strong>Time</strong> ${formattedTime}</p>`;
+    }
+    if (item.duration !== null) {
+      htmlContent += `<p><strong>Duration</strong> ${item.duration} hours</p>`;
+    }
+    if (item.address !== null) {
+      htmlContent += `<p><strong>Address</strong> ${item.address}</p>`;
+    }
+    if (item.transport !== null) {
+      htmlContent += `<p><strong>Transport</strong> ${item.transport}</p>`;
+    }
+    if (item.additionalInformation !== null) {
+      htmlContent += `<p><strong>Additional Information</strong> ${item.additionalInformation}</p>`;
+    }
+    if (item.reservationRequired) {
+      htmlContent += `<p><strong>Reservation Required?</strong> Yes</p>`;
+    }
+
+    dayDiv.innerHTML = htmlContent;
+    daysContainer.appendChild(dayDiv);
+  });
+}
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
     let currentUser = 'user1'; // Default user for this example
