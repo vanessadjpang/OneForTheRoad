@@ -1,0 +1,24 @@
+[{
+    "id": 1,
+    "time": "2024-05-20T00:00:00",
+    "activity": "Checkin",
+    "duration": 0.25,
+    "address": "1 Disney loop",
+    "transport": " Shuttle bus",
+    "additionalInformation": "Please make a reservation the night before.",
+    "reservationRequired": true,
+    "isDelete": false,
+    "updateAt": false
+},
+{
+   "id": 2,
+    "time": "2024-05-20T00:00:00",
+    "activity": "Checkin",
+    "duration": 0.5,
+    "address": "1 Disney loop",
+    "transport": " Shuttle bus",
+    "additionalInformation": "Nil",
+    "reservationRequired": true,
+    "isDelete": false,
+    "updateAt": false
+}]
