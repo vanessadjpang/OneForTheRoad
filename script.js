@@ -36,6 +36,20 @@ function toggleSidebar() {
     sidebar.classList.toggle('visible');
 }
 
+// Export PDF function for planner page
+document.getElementById('exportPDF').addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    html2canvas(document.querySelector("#content")).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF();
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save("webpage.pdf");
+    });
+  });
+
 //Search function for planner page
 document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.getElementById('searchForm');
