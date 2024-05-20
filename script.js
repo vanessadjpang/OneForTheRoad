@@ -36,6 +36,62 @@ function toggleSidebar() {
     sidebar.classList.toggle('visible');
 }
 
+//Search function for planner page
+document.addEventListener('DOMContentLoaded', () => {
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
+    const searchStatus = document.getElementById('searchStatus');
+  
+    searchForm.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent the form from submitting normally
+      const keyword = searchInput.value.trim().toLowerCase();
+      if (keyword) {
+        // Remove previous highlights
+        removeHighlights();
+        // Highlight new matches and show status
+        const matchCount = highlightText(keyword);
+        if (matchCount === 0) {
+          searchStatus.textContent = `No matches found for "${keyword}"   `;
+        } else {
+          searchStatus.textContent = `${matchCount} match(es) found for "${keyword}"   `;
+        }
+      }
+    });
+  
+    function highlightText(keyword) {
+      let matchCount = 0;
+      const regex = new RegExp(`(${keyword})`, 'gi');
+      walkText(document.body, function (node) {
+        const matches = node.textContent.match(regex);
+        if (matches) {
+          const span = document.createElement('span');
+          span.innerHTML = node.textContent.replace(regex, '<span class="highlight">$1</span>');
+          node.replaceWith(span);
+          matchCount += matches.length;
+        }
+      });
+      return matchCount;
+    }
+  
+    function removeHighlights() {
+      const highlights = document.querySelectorAll('.highlight');
+      highlights.forEach(highlight => {
+        const parent = highlight.parentNode;
+        parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+        parent.normalize(); // Merge adjacent text nodes
+      });
+    }
+  
+    function walkText(node, callback) {
+      if (node.nodeType === 3) {
+        callback(node);
+      } else {
+        node.childNodes.forEach(child => walkText(child, callback));
+      }
+    }
+  });
+
+
 //To read JSON
 fetch('activities.json')
             .then(response => response.json())
