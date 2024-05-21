@@ -65,7 +65,7 @@
 
   .hamburger {
     top: 55px;
-    left: 15px;
+    right: 15px;
     font-size: 30px;
     cursor: pointer;
     display: inline-block;
@@ -79,16 +79,16 @@
     width: 250px;
     position: fixed;
     top: 100px;
-    left: -250px; /* Initially hidden */
+    right: -250px; /* Initially hidden */
     background-color: #343a40;
     padding-top: 20px;
-    transition: left 0.3s;
+    transition: right 0.3s;
     overflow-x: hidden;
     z-index: 1;
   }
 
   .sidebar.visible {
-    left: 0; /* Show the sidebar */
+    right: 0; /* Show the sidebar */
   }
   .sidebar ul {
     list-style-type: none;
@@ -119,13 +119,13 @@
   
   .content {
     flex-grow: 1;
-    transition: margin-left 0.3s;
+    transition: margin-right 0.3s;
     padding: 20px;
-    margin-left: 0;
+    margin-right: 0;
   }
 
   .shifted {
-    margin-left: 250px;
+    margin-right: 250px;
   }
 
   .day {
