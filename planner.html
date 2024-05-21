@@ -72,7 +72,7 @@
 
 <!-- Side bar navigation -->
 <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
-    <nav class="sidebar" id="sidebar">
+  <nav class="sidebar" id="sidebar">
         <ul id="sidebarMenu">
             <li><a href="planner.html" class="active">Planner</a></li>
             <li><a href="reminders.html">Reminders</a></li>
@@ -80,6 +80,7 @@
             <li><a href="index.html" onclick="logout()">Logout</a></li>
         </ul>
     </nav>
+<!-- End of Side bar navigation-->
 
     <main>
       <div class="content" id="content">
@@ -102,18 +103,17 @@
         </form>
         <div id="calendarView"></div>
         <div id="savedItineraries"></div>
+<!-- Footer within content -->      
+        <div>
+          <hr class="sectionDivider">
+          <footer>
+            <p class="backToTop"><a href="#">Back to top</a></p>
+            <p>© 2024 Vanessa</p>
+            <p> Disclaimer: This website is created for learning purposes only. The information provided here should not be considered professional advice. Please note that we make no guarantees regarding the accuracy, completeness, or reliability of the contents of this website. Any actions you take based on the contents of this website are at your own risk. We are not liable for any losses or damages incurred from the use of this website.</p>
+          </footer>
+        </div>
       </div>
     </main>
-
-<!-- Footer -->
-    <div>
-      <hr class="sectionDivider">
-      <footer>
-        <p class="backToTop"><a href="#">Back to top</a></p>
-        <p>© 2024 Vanessa</p>
-        <p> Disclaimer: This website is created for learning purposes only. The information provided here should not be considered professional advice. Please note that we make no guarantees regarding the accuracy, completeness, or reliability of the contents of this website. Any actions you take based on the contents of this website are at your own risk. We are not liable for any losses or damages incurred from the use of this website.</p>
-      </footer>
-    </div>
 
     <script src="script.js"></script>
 </body>

@@ -34,7 +34,21 @@ function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const body = document.body;
     sidebar.classList.toggle('visible');
+    content.classList.toggle('shifted');
 }
+// Add event listener for the sidebar menu
+document.querySelector('.sidebar').addEventListener('click', toggleSidebar);
+
+// Add event listener for the content to hide the sidebar when clicked
+document.querySelector('.content').addEventListener('click', function() {
+    const sidebar = document.getElementById('sidebar');
+    const body = document.body;
+    if (sidebar.classList.contains('visible')) {
+        sidebar.classList.remove('visible');
+        body.classList.remove('shifted');
+        content.classList.remove('shifted');
+    }
+});
 
 // Export PDF function for planner page
 document.getElementById('exportPDF').addEventListener('click', () => {
