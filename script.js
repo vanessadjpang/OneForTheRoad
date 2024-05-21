@@ -81,7 +81,7 @@ document.getElementById('exportPDF').addEventListener('click', () => {
         heightLeft -= pdfHeight;
       }
   
-      pdf.save("webpage.pdf");
+      pdf.save("TripItinerary.pdf");
     });
   });
 
