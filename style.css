@@ -269,3 +269,9 @@
 .list-group-item label {
   flex-grow: 1;
 }
+
+/* Add strikethrough for completed items */
+.completed label {
+  text-decoration: line-through;
+  color: gray;
+}

@@ -160,7 +160,10 @@ fetch('activities.json')
                     <label for="reminder-${item.activity}"> <b>${item.activity} </b> <br> <i>${item.additionalInformation}</i> <br> ${formattedDate}</label>
                 </label>`;
                 remindersContainer.appendChild(reminderItem);
-            }
+             // Add event listener to handle checkbox state change
+             const checkbox = reminderItem.querySelector('input[type="checkbox"]');
+             checkbox.addEventListener('change', () => handleReminderCompletion(reminderItem, checkbox.checked));
+         }
 
             activityDiv.innerHTML = htmlContent;
             dateDiv.appendChild(activityDiv);
@@ -168,7 +171,38 @@ fetch('activities.json')
 
         daysContainer.appendChild(dateDiv);
     }
+        // Initial sorting
+        sortReminders();
 }
+// Function to handle reminder completion
+function handleReminderCompletion(item, isCompleted) {
+    if (isCompleted) {
+        item.classList.add('completed');
+        // Move to the bottom of the list
+        item.parentNode.appendChild(item);
+    } else {
+        item.classList.remove('completed');
+ // Re-sort reminders after completion change
+ sortReminders();
+    }
+    // Function to sort reminders based on date and completion status
+function sortReminders() {
+    const remindersContainer = document.getElementById('remindersContainer').querySelector('.list-group');
+    const reminderItems = Array.from(remindersContainer.children);
+
+    reminderItems.sort((a, b) => {
+        const dateA = new Date(a.dataset.date);
+        const dateB = new Date(b.dataset.date);
+        const isCompletedA = a.classList.contains('completed');
+        const isCompletedB = b.classList.contains('completed');
+
+        if (isCompletedA && !isCompletedB) return 1;
+        if (!isCompletedA && isCompletedB) return -1;
+        return dateA - dateB;
+    });
+
+    reminderItems.forEach(item => remindersContainer.appendChild(item));
+};}
 
 //End of JSON
 
