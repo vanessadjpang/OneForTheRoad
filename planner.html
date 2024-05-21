@@ -62,10 +62,9 @@
 <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
   <nav class="sidebar" id="sidebar">
         <ul id="sidebarMenu">
-            <li><a href="planner.html">Planner</a></li>
+            <li><a href="#tab">Planner</a></li>
             <li><a href="#remindersContainer">Reminders</a></li>
             <li><a href="#countdown-fake">Countdown</a></li>
-            <li><a href="index.html" onclick="logout()">Logout</a></li>
         </ul>
     </nav>
 <!-- End of Side bar navigation-->
@@ -82,6 +81,17 @@
             
             <button type="button" id="generateDaysButton">Generate Days</button>
         </form>
+                <!-- Start of countdown timer fake-->
+                <div class="countdown-container-fake">
+                  <h1>Countdown to Seoul</h1>
+                  <div id="countdown-fake">
+                      <div><span id="days"></span> Days</div>
+                      <div><span id="hours"></span> Hours</div>
+                      <div><span id="minutes"></span> Minutes</div>
+                      <div><span id="seconds"></span> Seconds</div>
+                  </div>
+                </div>
+        <!-- End of countdown timer fake-->
         <div class="tab" id="tabContainer"></div>
         <form id="plannerForm" style="display:block;">
             <div id="daysContainer"></div>
@@ -98,18 +108,9 @@
   <ul class="list-group"></ul>
 </div>
 
-<!-- Start of countdown timer fake-->
-        <div class="countdown-container-fake">
-          <h1>Countdown to Seoul</h1>
-          <div id="countdown-fake">
-              <div><span id="days"></span> Days</div>
-              <div><span id="hours"></span> Hours</div>
-              <div><span id="minutes"></span> Minutes</div>
-              <div><span id="seconds"></span> Seconds</div>
-          </div>
-<!-- End of countdown timer fake-->
 
-      </div>
+
+
 <!-- Footer within content -->      
         <div>
           <footer>

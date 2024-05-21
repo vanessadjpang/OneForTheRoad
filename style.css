@@ -60,9 +60,9 @@
 
 
   .hamburger {
-    top: 55px;
+    top: 45px;
     right: 15px;
-    font-size: 30px;
+    font-size: 40px;
     cursor: pointer;
     display: inline-block;
     padding: 5px;
@@ -192,19 +192,19 @@
 /* Countdown timer fake */
 .countdown-container-fake {
   text-align: center;
-  background-color: #fff;
-  padding: 20px;
+  background-color: snow;
+  padding: 5px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
-  margin-top: 200px;
-  margin-bottom: 200px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 #countdown-fake {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  font-size: 2rem;
+  gap: 10px;
+  font-size: 1rem;
 }
 
 #countdown-fake div {
