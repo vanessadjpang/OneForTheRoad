@@ -188,3 +188,32 @@
 .calendar-table tbody tr:hover {
   background-color: #f1f1f1;
 }
+
+/* Countdown timer fake */
+.countdown-container-fake {
+  text-align: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
+  margin-top: 200px;
+  margin-bottom: 200px;
+}
+
+#countdown-fake {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 2rem;
+}
+
+#countdown-fake div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: lighter;
+}
+
+#countdown-fake span {
+  font-weight: bold;
+}

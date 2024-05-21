@@ -377,4 +377,40 @@ document.addEventListener("DOMContentLoaded", function() {
 
         calendarView.appendChild(calendarTable);
     }
+
+
+    //Countdown timer fake
+    function countdownTimer(targetDate) {
+        const countdownElement = document.getElementById('countdown-fake');
+        const daysElement = document.getElementById('days');
+        const hoursElement = document.getElementById('hours');
+        const minutesElement = document.getElementById('minutes');
+        const secondsElement = document.getElementById('seconds');
+    
+        function updateCountdown() {
+            const now = new Date();
+            const timeDifference = targetDate - now;
+    
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    
+            daysElement.textContent = days;
+            hoursElement.textContent = hours;
+            minutesElement.textContent = minutes;
+            secondsElement.textContent = seconds;
+    
+            if (timeDifference < 0) {
+                clearInterval(interval);
+                countdownElement.innerHTML = "<h2>Welcome back!</h2>";
+            }
+        }
+    
+        const interval = setInterval(updateCountdown, 1000);
+    }
+    
+    const targetDate = new Date('December 25, 2024 00:00:00');
+    countdownTimer(targetDate);
+    
 });

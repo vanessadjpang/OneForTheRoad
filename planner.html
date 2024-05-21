@@ -64,7 +64,7 @@
         <ul id="sidebarMenu">
             <li><a href="planner.html" class="active">Planner</a></li>
             <li><a href="reminders.html">Reminders</a></li>
-            <li><a href="countdown.html">Countdown</a></li>
+            <li><a href="#countdown-fake">Countdown</a></li>
             <li><a href="index.html" onclick="logout()">Logout</a></li>
         </ul>
     </nav>
@@ -91,11 +91,22 @@
         </form>
         <div id="calendarView"></div>
         <div id="savedItineraries"></div>
+<!-- Start of countdown timer fake-->
+        <div class="countdown-container-fake">
+          <h1>Countdown to Seoul</h1>
+          <div id="countdown-fake">
+              <div><span id="days"></span> Days</div>
+              <div><span id="hours"></span> Hours</div>
+              <div><span id="minutes"></span> Minutes</div>
+              <div><span id="seconds"></span> Seconds</div>
+          </div>
+<!-- End of countdown timer fake-->
+
+      </div>
 <!-- Footer within content -->      
         <div>
-          <hr class="sectionDivider">
           <footer>
-            <p class="backToTop"><a href="#">Back to top</a></p>
+            <p class="backToTop" id="plannerFooter"><a href="#">Back to top</a></p>
             <p>© 2024 Vanessa</p>
             <p> Disclaimer: This website is created for learning purposes only. The information provided here should not be considered professional advice. Please note that we make no guarantees regarding the accuracy, completeness, or reliability of the contents of this website. Any actions you take based on the contents of this website are at your own risk. We are not liable for any losses or damages incurred from the use of this website.</p>
           </footer>
