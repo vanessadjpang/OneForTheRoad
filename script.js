@@ -96,9 +96,11 @@ fetch('activities.json')
     })
     .catch(error => console.error('Error fetching the JSON file:', error));
 
-function populateItinerary(itineraryData) {
+    function populateItinerary(itineraryData) {
     const daysContainer = document.getElementById('daysContainer');
+    const remindersContainer = document.getElementById('remindersContainer').querySelector('.list-group');
     daysContainer.innerHTML = ''; // Clear any existing content
+    remindersContainer.innerHTML = ''; // Clear any existing reminders
     daysContainer.classList.add('daysContainer'); // Add the class to apply CSS
 
     // Sort the activities by date
@@ -120,7 +122,7 @@ function populateItinerary(itineraryData) {
         }) + `<br>` + new Date(date).toLocaleDateString('en-US', {
             year: 'numeric', month: 'long', day: 'numeric'
         });
-        
+
         dateDiv.innerHTML = `<h3>${formattedDate}</h3>`;
 
         activities.forEach(item => {
@@ -130,26 +132,34 @@ function populateItinerary(itineraryData) {
             // Parse time if available
             const time = item.time ? new Date(`${item.date}T${item.time}`).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : '';
 
-            let htmlContent = `
-            <h4>${item.activity}</h4>`;
+            let htmlContent = `<h4>${item.activity}</h4>`;
 
             if (time) {
-                htmlContent += `<p><b>Time</b> ${time}</p>`;
+                htmlContent += `<p><b>Time:</b> ${time}</p>`;
             }
             if (item.duration) {
-                htmlContent += `<p><b>Duration</b> ${item.duration} hours</p>`;
+                htmlContent += `<p><b>Duration:</b> ${item.duration} hours</p>`;
             }
             if (item.address) {
-                htmlContent += `<p><b>Address</b> ${item.address}</p>`;
+                htmlContent += `<p><b>Address:</b> ${item.address}</p>`;
             }
             if (item.transport) {
-                htmlContent += `<p><b>Transport</b> ${item.transport}</p>`;
+                htmlContent += `<p><b>Transport:</b> ${item.transport}</p>`;
             }
             if (item.additionalInformation) {
-                htmlContent += `<p><b>Additional Information</b> ${item.additionalInformation}</p>`;
+                htmlContent += `<p><b>Additional Information:</b> ${item.additionalInformation}</p>`;
             }
             if (item.reservationRequired) {
                 htmlContent += `<p><i>Reservation Required?</i> Yes</p>`;
+
+                // Add to reminders checklist
+                const reminderItem = document.createElement('li');
+                reminderItem.classList.add('list-group-item');
+                reminderItem.innerHTML = `
+                    <label> <input type="checkbox" id="reminder-${item.activity}">
+                    <label for="reminder-${item.activity}"> <b>${item.activity} </b> <br> <i>${item.additionalInformation}</i> <br> ${formattedDate}</label>
+                </label>`;
+                remindersContainer.appendChild(reminderItem);
             }
 
             activityDiv.innerHTML = htmlContent;
@@ -159,7 +169,7 @@ function populateItinerary(itineraryData) {
         daysContainer.appendChild(dateDiv);
     }
 }
-;
+
 //End of JSON
 
 

@@ -80,7 +80,7 @@
     padding-top: 20px;
     transition: right 0.3s;
     overflow-x: hidden;
-    z-index: 1;
+    z-index: 2;
   }
 
   .sidebar.visible {
@@ -219,34 +219,53 @@
 }
 
 /* reminders fake */
-#reminderscontainer {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow to the border */
+.reminders-container h3 {
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
   margin-bottom: 20px;
+  text-align: center;
 }
 
-.reminder-item {
+.list-group-item {
   display: flex;
   align-items: center;
-  margin: 10px 0;
   padding: 10px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  border-radius: 10px;
+  transition: background-color 0.1s;
+  cursor: pointer; /* Add pointer cursor to the entire row */
+  margin-bottom: 5px;
+  z-index: 1;
+  width: 90%;
+  margin-left: 25px
 }
 
-.reminder-item:hover {
+.list-group-item:hover {
   background-color: #f1f1f1;
 }
 
-.reminder-item input[type="checkbox"] {
-  margin-right: 10px;
-  transform: scale(1.2); /* Make the checkbox larger for easier interaction */
+.list-group-item input[type="checkbox"] {
+  display: none; /* Hide the default checkbox */
 }
 
-.reminder-item label {
+.list-group-item input[type="checkbox"] + label::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 50%; /* Make it round */
+  border: 2px solid #007bff;
+  background-color: #fff;
+  transition: background-color 0.1s;
+}
+
+.list-group-item input[type="checkbox"]:checked + label::before {
+  background-color: #007bff; /* Change color when checked */
+  border-color: #007bff;
+}
+
+.list-group-item label {
   flex-grow: 1;
 }
