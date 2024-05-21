@@ -183,10 +183,10 @@ function handleReminderCompletion(item, isCompleted) {
     } else {
         item.classList.remove('completed');
  // Re-sort reminders after completion change
- sortReminders();
+    sortReminders();
     }
     // Function to sort reminders based on date and completion status
-function sortReminders() {
+    function sortReminders() {
     const remindersContainer = document.getElementById('remindersContainer').querySelector('.list-group');
     const reminderItems = Array.from(remindersContainer.children);
 
