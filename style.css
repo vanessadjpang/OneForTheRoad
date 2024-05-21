@@ -72,7 +72,7 @@
 
   .sidebar {
     height: 100%;
-    width: 250px;
+    width: 150px;
     position: fixed;
     top: 100px;
     right: -250px; /* Initially hidden */
@@ -124,11 +124,67 @@
     margin-right: 250px;
   }
 
-  .day {
-    padding: 20px;
-    margin: 10px 0;
+  .daysContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 1200px) {
+  .daysContainer {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .daysContainer {
+      grid-template-columns: repeat(1, 1fr); /* 1 column for small screens */
+  }
+}
+
+.day {
+    padding: 10px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-  }
-  
+    font-size: 0.8rem; /* Smaller text size */
+}
+
+.activity {
+  border-top: 1px solid #ddd;
+  padding-top: 5px;
+  margin-top: 5px;
+  font-size: 0.8rem; /* Smaller text size */
+}
+
+/* Style the calendar table */
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.8rem; /* Smaller text size */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.calendar-table th,
+.calendar-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.calendar-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.calendar-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.calendar-table tbody tr:hover {
+  background-color: #f1f1f1;
+}

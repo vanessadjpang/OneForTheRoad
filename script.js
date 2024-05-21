@@ -87,6 +87,7 @@ document.getElementById('exportPDF').addEventListener('click', () => {
 
 
 //To read JSON
+// Fetch and populate itinerary data
 fetch('activities.json')
     .then(response => response.json())
     .then(data => {
@@ -95,45 +96,70 @@ fetch('activities.json')
     })
     .catch(error => console.error('Error fetching the JSON file:', error));
 
-    function populateItinerary(itineraryData) {
+function populateItinerary(itineraryData) {
     const daysContainer = document.getElementById('daysContainer');
-    itineraryData.forEach(item => {
-        const dayDiv = document.createElement('div');
-        dayDiv.classList.add('day');
+    daysContainer.innerHTML = ''; // Clear any existing content
+    daysContainer.classList.add('daysContainer'); // Add the class to apply CSS
 
-        // Parse date and time
-        const date = item.time ? new Date(`${item.date}T${item.time}`) : new Date(item.date);
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const formattedDate = date.toLocaleDateString('en-US', options);
-        const formattedTime = item.time ? date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : '';
+    // Sort the activities by date
+    itineraryData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-        let htmlContent = `
-        <h3>${item.activity}</h3>
-        <p><strong>Date</strong> ${formattedDate}</p>`;
+    // Group activities by date
+    const groupedByDate = itineraryData.reduce((acc, item) => {
+        (acc[item.date] = acc[item.date] || []).push(item);
+        return acc;
+    }, {});
 
-        if (item.time !== null) {
-        htmlContent += `<p><strong>Time</strong> ${formattedTime}</p>`;
-        }
-        if (item.duration !== null) {
-        htmlContent += `<p><strong>Duration</strong> ${item.duration} hours</p>`;
-        }
-        if (item.address !== null) {
-        htmlContent += `<p><strong>Address</strong> ${item.address}</p>`;
-        }
-        if (item.transport !== null) {
-        htmlContent += `<p><strong>Transport</strong> ${item.transport}</p>`;
-        }
-        if (item.additionalInformation !== null) {
-        htmlContent += `<p><strong>Additional Information</strong> ${item.additionalInformation}</p>`;
-        }
-        if (item.reservationRequired) {
-        htmlContent += `<p><strong>Reservation Required?</strong> Yes</p>`;
-        }
+    // Iterate through each date group and create a box for each date
+    for (const [date, activities] of Object.entries(groupedByDate)) {
+        const dateDiv = document.createElement('div');
+        dateDiv.classList.add('day');
 
-        dayDiv.innerHTML = htmlContent;
-        daysContainer.appendChild(dayDiv);
-    });
+        const formattedDate = new Date(date).toLocaleDateString('en-US', {
+            weekday: 'long'
+        }) + `<br>` + new Date(date).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric'
+        });
+        
+        dateDiv.innerHTML = `<h3>${formattedDate}</h3>`;
+
+        activities.forEach(item => {
+            const activityDiv = document.createElement('div');
+            activityDiv.classList.add('activity');
+
+            // Parse time if available
+            const time = item.time ? new Date(`${item.date}T${item.time}`).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : '';
+
+            let htmlContent = `
+            <h4>${item.activity}</h4>`;
+
+            if (time) {
+                htmlContent += `<p><b>Time</b> ${time}</p>`;
+            }
+            if (item.duration) {
+                htmlContent += `<p><b>Duration</b> ${item.duration} hours</p>`;
+            }
+            if (item.address) {
+                htmlContent += `<p><b>Address</b> ${item.address}</p>`;
+            }
+            if (item.transport) {
+                htmlContent += `<p><b>Transport</b> ${item.transport}</p>`;
+            }
+            if (item.additionalInformation) {
+                htmlContent += `<p><b>Additional Information</b> ${item.additionalInformation}</p>`;
+            }
+            if (item.reservationRequired) {
+                htmlContent += `<p><i>Reservation Required?</i> Yes</p>`;
+            }
+
+            activityDiv.innerHTML = htmlContent;
+            dateDiv.appendChild(activityDiv);
+        });
+
+        daysContainer.appendChild(dateDiv);
     }
+}
+;
 //End of JSON
 
 
@@ -315,24 +341,38 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('savedItineraries').appendChild(itineraryContent);
 
         // Create Calendar View
-        calendarView.innerHTML = '<h3>Calendar View</h3>';
+        calendarView.innerHTML = '<h4>Calendar View</h4>';
         const calendarTable = document.createElement('table');
-        calendarTable.innerHTML = '<tr><th>Date</th><th>Activity</th><th>Time</th><th>Address</th><th>Transport</th><th>Additional Info</th><th>Reservation</th></tr>';
+        calendarTable.classList.add('calendar-table');
+        calendarTable.innerHTML = `
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Activity</th>
+                    <th>Time</th>
+                    <th>Address</th>
+                    <th>Transport</th>
+                    <th>Additional Info</th>
+                    <th>Reservation</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        `;
 
         const calendarStartDate = new Date(tripStart);
         Array.from(dayPlans).forEach((dayPlan, index) => {
             const dayRow = document.createElement('tr');
             dayRow.innerHTML = `
                 <td>${calendarStartDate.toDateString()}</td>
-                <td>${dayPlan.querySelector(`#activity-${index + 1}`).value || 'No activity entered'}</td>
-                <td>${dayPlan.querySelector(`#time-${index + 1}`).value || 'No time entered'}</td>
-                <td>${dayPlan.querySelector(`#address-${index + 1}`).value || 'No address entered'}</td>
-                <td>${dayPlan.querySelector(`#transport-${index + 1}`).value || 'No transport entered'}</td>
-                <td>${dayPlan.querySelector(`#additionalInfo-${index + 1}`).value || 'No additional information'}</td>
-                <td>${dayPlan.querySelector(`#reservation-${index + 1}`).checked ? 'Yes' : 'No'}</td>
+                <td>${dayPlan.querySelector(`#activity-${index + 1}`).value || ' '}</td>
+                <td>${dayPlan.querySelector(`#time-${index + 1}`).value || ' '}</td>
+                <td>${dayPlan.querySelector(`#address-${index + 1}`).value || ' '}</td>
+                <td>${dayPlan.querySelector(`#transport-${index + 1}`).value || ' '}</td>
+                <td>${dayPlan.querySelector(`#additionalInfo-${index + 1}`).value || ' '}</td>
+                <td>${dayPlan.querySelector(`#reservation-${index + 1}`).checked ? 'Yes' : ''}</td>
             `;
-            calendarTable.appendChild(dayRow);
-            calendarStartDate.setDate(calendarStartDate.getDate() + 1);
+                calendarTable.querySelector('tbody').appendChild(dayRow);
+                calendarStartDate.setDate(calendarStartDate.getDate() + 1);
         });
 
         calendarView.appendChild(calendarTable);
