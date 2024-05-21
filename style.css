@@ -38,6 +38,7 @@
   }
   
   #plannerHeader {
+    margin-top: 50px;
     text-align: center;
   }
   
@@ -53,13 +54,23 @@
     margin: 0;
   }
 
+  .navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+  }
+
+
   .hamburger {
     top: 55px;
     left: 15px;
     font-size: 30px;
     cursor: pointer;
     display: inline-block;
-    padding: 10px;
+    padding: 5px;
+    position: fixed;
   }
 
 
