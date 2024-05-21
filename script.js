@@ -53,13 +53,34 @@ document.querySelector('.content').addEventListener('click', function() {
 // Export PDF function for planner page
 document.getElementById('exportPDF').addEventListener('click', () => {
     const { jsPDF } = window.jspdf;
-    html2canvas(document.querySelector("#content")).then(canvas => {
+    const content = document.querySelector("#content");
+  
+    html2canvas(content).then(canvas => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF();
-      const imgProps = pdf.getImageProperties(imgData);
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+  
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+  
+      const ratio = imgWidth / pdfWidth;
+      const adjustedHeight = imgHeight / ratio;
+  
+      let heightLeft = adjustedHeight;
+      let position = 0;
+  
+      pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, adjustedHeight);
+  
+      heightLeft -= pdfHeight;
+  
+      while (heightLeft > 0) {
+        position = heightLeft - adjustedHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, adjustedHeight);
+        heightLeft -= pdfHeight;
+      }
+  
       pdf.save("webpage.pdf");
     });
   });
