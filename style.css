@@ -196,8 +196,10 @@
   padding: 5px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 80px;
+  width: 50%;
+  position:block;
+  transform: translate(50%, -50%); /* Center the container */
 }
 
 #countdown-fake {
@@ -275,4 +277,23 @@
 .completed label {
   text-decoration: line-through;
   color: gray;
+}
+
+#bannerImage {
+  width: 70%;
+  height: 300px;
+  border-radius: 20px;
+  position: flex;
+  margin-left: 15%;
+  margin-top: 60px;
+}
+
+#contentOverlay {
+  position: absolute;
+  top: 0%;
+  right: 4%;
+  text-align: auto;
+  background-color: rgba(255, 255, 255, 0.8); /* Optional: Semi-transparent background for readability */
+  padding: 20px;
+  border-radius: 10px;
 }
