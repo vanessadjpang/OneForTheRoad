@@ -76,16 +76,40 @@
 
     <main id="contentOverlay">
       <div class="content" id="content">
+
         <h2 id="plannerHeader">Travel Itinerary Planner</h2>
-        <form id="tripDatesForm">
-            <label for="tripStart">Start Date:</label>
-            <input type="date" id="tripStart" name="tripStart" required>
-            
-            <label for="tripEnd">End Date:</label>
-            <input type="date" id="tripEnd" name="tripEnd" required>
-            
-            <button type="button" id="generateDaysButton">Generate Days</button>
-        </form>
+
+        <form id="tripForm">
+          <div class="form-group">
+              <label for="tripName">Itinerary Name:</label>
+              <input type="text" id="tripName" name="tripName" required placeholder="Enter trip name">
+          </div>
+
+          <div class="form-group inline">
+              <div class="form-item">
+                  <label for="tripStart">Start Date:</label>
+                  <input type="date" id="tripStart" name="tripStart" required>
+              </div>
+              <div class="form-item">
+                  <label for="tripEnd">End Date:</label>
+                  <input type="date" id="tripEnd" name="tripEnd" required>
+              </div>
+          </div>
+
+          <div class="form-group inline">
+              <div class="form-item">
+                  <label for="tripStartTime">Start Time (optional):</label>
+                  <input type="time" id="tripStartTime" name="tripStartTime">
+              </div>
+              <div class="form-item">
+                  <label for="tripEndTime">End Time (optional):</label>
+                  <input type="time" id="tripEndTime" name="tripEndTime">
+              </div>
+          </div>
+
+          <button type="submit" class="btn-submit">Generate Template</button>
+      </form>
+
                 <!-- Start of countdown timer fake-->
                 <div class="countdown-container-fake">
                   <h1>Countdown to Seoul</h1>
@@ -107,12 +131,12 @@
         <div id="calendarView"></div>
         <div id="savedItineraries"></div>
 
-<!-- Start of reminders fake-->
+<!-- Start of reminders hardcoded-->
 <div id="remindersContainer" class="reminders-container mt-4">
   <h3>Reminders</h3>
   <ul class="list-group"></ul>
 </div>
-
+<!-- End of reminders hardcoded-->
 
 
 

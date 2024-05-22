@@ -282,7 +282,7 @@
 
 #bannerImage {
   width: 70%;
-  height: 300px;
+  height: 350px;
   border-radius: 20px;
   position: flex;
   margin-left: 15%;
@@ -296,4 +296,72 @@
   background-color: rgba(255, 255, 255, 0.8); /* Optional: Semi-transparent background for readability */
   padding: 20px;
   border-radius: 10px;
+}
+
+/*. tripStart and tripEnd form */
+
+#tripForm {
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10%;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.form-group.inline {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 10px;
+}
+
+.form-item:first-child {
+  margin-left: 0;
+}
+
+label {
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-submit {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 30%;
+  margin-top: 20px;
+
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
 }
