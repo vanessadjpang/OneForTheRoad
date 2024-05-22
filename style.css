@@ -67,6 +67,7 @@
     display: inline-block;
     padding: 5px;
     position: fixed;
+    z-index: 2;
   }
 
 
@@ -291,7 +292,6 @@
 #contentOverlay {
   position: absolute;
   top: 0%;
-  right: 4%;
   text-align: auto;
   background-color: rgba(255, 255, 255, 0.8); /* Optional: Semi-transparent background for readability */
   padding: 20px;
