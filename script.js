@@ -1,33 +1,3 @@
-// Start of Login portion
-document.addEventListener("DOMContentLoaded", function() {
-    const users = {
-        user1: "password1",
-        user2: "password2"
-    };
-
-    const loginForm = document.getElementById('loginForm');
-
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            if (users[username] && users[username] === password) {
-                alert("Login successful!");
-                window.location.href = 'planner.html';
-            } else {
-                alert("Invalid username or password. Please try again.");
-            }
-        });
-    }
-});
-//End of login portion
-
-// Logout alert
-function logout() {
-    alert("You will be redirected to the Login page");
-}
 
 //sidebar for planner page
 function toggleSidebar() {
@@ -208,7 +178,6 @@ function handleReminderCompletion(item, isCompleted) {
 
 
 document.addEventListener("DOMContentLoaded", function() {
-    let currentUser = 'user1'; // Default user for this example
     let tripStart, tripEnd;
 
     function showPlanner() {
@@ -236,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function() {
     showPlanner();
     loadSavedItineraries();
 
-    document.getElementById('generateDaysButton')?.addEventListener('click', function() {
+    document.getElementById('generateDaysButton').addEventListener('click', function() {
         tripStart = document.getElementById("tripStart").value;
         tripEnd = document.getElementById("tripEnd").value;
 
