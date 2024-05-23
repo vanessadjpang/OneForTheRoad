@@ -1,3 +1,5 @@
+
+/* start of login page css */
 .login-container {
     justify-content: center;
     width: 40%;
@@ -14,11 +16,15 @@
     margin-bottom: 20px;
     text-align: center;
   }
-  
+  /* end of login page css */
+
+  /* start of footer css*/
   .backToTop {
     float: right;
   }
-  
+  /* end of footer css*/
+
+  /* start of signup page css */
   .signup-container {
     justify-content: center;
     width: 40%;
@@ -36,7 +42,9 @@
     margin-bottom: 20px;
     text-align: center;
   }
-  
+  /* end of signup page css */
+
+
   #plannerHeader {
     margin-top: 50px;
     text-align: center;
@@ -190,89 +198,7 @@
   background-color: #f1f1f1;
 }
 
-/* Countdown timer fake */
-.countdown-container-fake {
-  text-align: center;
-  background-color: snow;
-  padding: 5px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
-  margin-top: 80px;
-  width: 50%;
-  position:block;
-  transform: translate(50%, -50%); /* Center the container */
-}
 
-#countdown-fake {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  font-size: 1rem;
-}
-
-#countdown-fake div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-weight: lighter;
-}
-
-#countdown-fake span {
-  font-weight: bold;
-}
-
-/* reminders fake */
-.reminders-container h3 {
-  border-bottom: 2px solid #007bff;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  text-align: center;
-}
-
-.list-group-item {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  transition: background-color 0.1s;
-  cursor: pointer; /* Add pointer cursor to the entire row */
-  margin-bottom: 5px;
-  z-index: 1;
-  width: 90%;
-  margin-left: 25px
-}
-
-.list-group-item:hover {
-  background-color: #f1f1f1;
-}
-
-.list-group-item input[type="checkbox"] {
-  display: none; /* Hide the default checkbox */
-}
-
-.list-group-item input[type="checkbox"] + label::before {
-  content: '';
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  border-radius: 50%; /* Make it round */
-  border: 2px solid #007bff;
-  background-color: #fff;
-  transition: background-color 0.1s;
-}
-
-.list-group-item input[type="checkbox"]:checked + label::before {
-  background-color: #007bff; /* Change color when checked */
-  border-color: #007bff;
-}
-
-.list-group-item label {
-  flex-grow: 1;
-}
 
 /* Add strikethrough for completed items */
 .completed label {
@@ -281,11 +207,11 @@
 }
 
 #bannerImage {
-  width: 70%;
-  height: 350px;
+  width: 75%;
+  height: 450px;
   border-radius: 20px;
   position: flex;
-  margin-left: 15%;
+  margin-left: 12.5%;
   margin-top: 60px;
 }
 
@@ -364,4 +290,117 @@ input[type="time"] {
 
 .btn-submit:hover {
   background-color: #0056b3;
+}
+
+
+#plannerFooter {
+  margin-top: 200px;
+}
+
+/* countdown */
+.countdown-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Light shadow for depth */
+  max-width: 400px;
+  margin: 0 auto; /* Center horizontally */
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+
+#daysContainer {
+  margin-bottom: 200px;
+}
+
+/* Countdown timer fake */
+.countdown-container {
+  text-align: center;
+  background-color: snow;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
+  width: 50%;
+  position:block;
+}
+
+#countdown {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1rem;
+}
+
+#countdown div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: lighter;
+}
+
+#countdown span {
+  font-weight: bold;
+}
+
+/* reminders fake */
+.reminders-container h3 {
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+#remindersContainer {
+  width: 80%;
+  margin-left: 10%;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: background-color 0.1s;
+  cursor: pointer; /* Add pointer cursor to the entire row */
+  margin-bottom: 5px;
+  z-index: 1;
+  width: 90%;
+  margin-left: 5%
+}
+
+.list-group-item:hover {
+  background-color: #f1f1f1;
+}
+
+.list-group-item input[type="checkbox"] {
+  display: none; /* Hide the default checkbox */
+}
+
+.list-group-item input[type="checkbox"] + label::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* Make it round */
+  border: 2px solid #007bff;
+  background-color: #fff;
+  transition: background-color 0.1s;
+  margin-right: 5px;
+}
+
+.list-group-item input[type="checkbox"]:checked + label::before {
+  background-color: #007bff; /* Change color when checked */
+  border-color: #007bff;
+}
+
+.list-group-item label {
+  flex-grow: 1;
 }

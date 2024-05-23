@@ -1,6 +1,6 @@
 
 
-//sidebar for planner page
+//sidebar for itinerary page
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const body = document.body;
@@ -55,127 +55,6 @@ document.getElementById('exportPDF').addEventListener('click', () => {
       pdf.save("TripItinerary.pdf");
     });
   });
-
-
-//To read JSON
-// Fetch and populate itinerary data
-fetch('activities.json')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data); // Log the data to the console to verify
-        populateItinerary(data); // Call a function to handle the data
-    })
-    .catch(error => console.error('Error fetching the JSON file:', error));
-
-    function populateItinerary(itineraryData) {
-    const daysContainer = document.getElementById('daysContainer');
-    const remindersContainer = document.getElementById('remindersContainer').querySelector('.list-group');
-    daysContainer.innerHTML = ''; // Clear any existing content
-    remindersContainer.innerHTML = ''; // Clear any existing reminders
-    daysContainer.classList.add('daysContainer'); // Add the class to apply CSS
-
-    // Sort the activities by date
-    itineraryData.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    // Group activities by date
-    const groupedByDate = itineraryData.reduce((acc, item) => {
-        (acc[item.date] = acc[item.date] || []).push(item);
-        return acc;
-    }, {});
-
-    // Iterate through each date group and create a box for each date
-    for (const [date, activities] of Object.entries(groupedByDate)) {
-        const dateDiv = document.createElement('div');
-        dateDiv.classList.add('day');
-
-        const formattedDate = new Date(date).toLocaleDateString('en-US', {
-            weekday: 'long'
-        }) + `<br>` + new Date(date).toLocaleDateString('en-US', {
-            year: 'numeric', month: 'long', day: 'numeric'
-        });
-
-        dateDiv.innerHTML = `<h3>${formattedDate}</h3>`;
-
-        activities.forEach(item => {
-            const activityDiv = document.createElement('div');
-            activityDiv.classList.add('activity');
-
-            // Parse time if available
-            const time = item.time ? new Date(`${item.date}T${item.time}`).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : '';
-
-            let htmlContent = `<h4>${item.activity}</h4>`;
-
-            if (time) {
-                htmlContent += `<p><b>Time:</b> ${time}</p>`;
-            }
-            if (item.duration) {
-                htmlContent += `<p><b>Duration:</b> ${item.duration} hours</p>`;
-            }
-            if (item.address) {
-                htmlContent += `<p><b>Address:</b> ${item.address}</p>`;
-            }
-            if (item.transport) {
-                htmlContent += `<p><b>Transport:</b> ${item.transport}</p>`;
-            }
-            if (item.additionalInformation) {
-                htmlContent += `<p><b>Additional Information:</b> ${item.additionalInformation}</p>`;
-            }
-            if (item.reservationRequired) {
-                htmlContent += `<p><i>Reservation Required?</i> Yes</p>`;
-
-                // Add to reminders checklist
-                const reminderItem = document.createElement('li');
-                reminderItem.classList.add('list-group-item');
-                reminderItem.innerHTML = `
-                    <label> <input type="checkbox" id="reminder-${item.activity}">
-                    <label for="reminder-${item.activity}"> <b>${item.activity} </b> <br> <i>${item.additionalInformation}</i> <br> ${formattedDate}</label>
-                </label>`;
-                remindersContainer.appendChild(reminderItem);
-             // Add event listener to handle checkbox state change
-             const checkbox = reminderItem.querySelector('input[type="checkbox"]');
-             checkbox.addEventListener('change', () => handleReminderCompletion(reminderItem, checkbox.checked));
-         }
-
-            activityDiv.innerHTML = htmlContent;
-            dateDiv.appendChild(activityDiv);
-        });
-
-        daysContainer.appendChild(dateDiv);
-    }
-        // Initial sorting
-        sortReminders();
-}
-// Function to handle reminder completion
-function handleReminderCompletion(item, isCompleted) {
-    if (isCompleted) {
-        item.classList.add('completed');
-        // Move to the bottom of the list
-        item.parentNode.appendChild(item);
-    } else {
-        item.classList.remove('completed');
- // Re-sort reminders after completion change
-    sortReminders();
-    }
-    // Function to sort reminders based on date and completion status
-    function sortReminders() {
-    const remindersContainer = document.getElementById('remindersContainer').querySelector('.list-group');
-    const reminderItems = Array.from(remindersContainer.children);
-
-    reminderItems.sort((a, b) => {
-        const dateA = new Date(a.dataset.date);
-        const dateB = new Date(b.dataset.date);
-        const isCompletedA = a.classList.contains('completed');
-        const isCompletedB = b.classList.contains('completed');
-
-        if (isCompletedA && !isCompletedB) return 1;
-        if (!isCompletedA && isCompletedB) return -1;
-        return dateA - dateB;
-    });
-
-    reminderItems.forEach(item => remindersContainer.appendChild(item));
-};}
-
-//End of JSON
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -309,9 +188,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const dayPlans = daysContainer.getElementsByClassName('tabcontent');
         const calendarView = document.getElementById('calendarView');
         calendarView.innerHTML = '';
-        const itineraryName = document.getElementById('tripName').value;
+        const tripName = document.getElementById('tripName').value;
 
-        if (!itineraryName) {
+        if (!tripName) {
             alert('Please enter an itinerary name');
             return;
         }
@@ -320,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function() {
         itineraryContent.classList.add('itinerary');
         const itineraryTitle = document.createElement('h3');
         itineraryTitle.classList.add('itinerary-name');
-        itineraryTitle.textContent = itineraryName;
+        itineraryTitle.textContent = tripName;
         itineraryContent.appendChild(itineraryTitle);
 
         const tripStartDate = new Date(tripStart);
@@ -394,37 +273,161 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     //Countdown timer fake
+
     function countdownTimer(targetDate) {
-        const countdownElement = document.getElementById('countdown-fake');
+        const countdownElement = document.getElementById('countdown');
         const daysElement = document.getElementById('days');
         const hoursElement = document.getElementById('hours');
         const minutesElement = document.getElementById('minutes');
         const secondsElement = document.getElementById('seconds');
-    
+
         function updateCountdown() {
             const now = new Date();
             const timeDifference = targetDate - now;
-    
+
+            if (timeDifference < 0) {
+                clearInterval(interval);
+                countdownElement.innerHTML = "<h2>Welcome back!</h2>";
+                return;
+            }
+
             const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
             const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-    
+
             daysElement.textContent = days;
             hoursElement.textContent = hours;
             minutesElement.textContent = minutes;
             secondsElement.textContent = seconds;
-    
-            if (timeDifference < 0) {
-                clearInterval(interval);
-                countdownElement.innerHTML = "<h2>Welcome back!</h2>";
-            }
         }
-    
+
         const interval = setInterval(updateCountdown, 1000);
     }
-    
-    const targetDate = new Date('December 25, 2024 00:00:00');
-    countdownTimer(targetDate);
-    
+
+// Initialize the countdown timer
+const targetDate = new Date('December 25, 2024 00:00:00');
+countdownTimer(targetDate);
 });
+
+//To read JSON
+// Fetch and populate itinerary data
+
+    fetch('activities.json')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); // Log the data to the console to verify
+        populateItinerary(data); // Call a function to handle the data
+    })
+    .catch(error => console.error('Error fetching the JSON file:', error));
+
+    function populateItinerary(itineraryData) {
+    const daysContainer = document.getElementById('daysContainer');
+    const remindersContainer = document.getElementById('remindersContainer').querySelector('.list-group');
+    daysContainer.innerHTML = ''; // Clear any existing content
+    remindersContainer.innerHTML = ''; // Clear any existing reminders
+    daysContainer.classList.add('daysContainer'); // Add the class to apply CSS
+
+    // Sort the activities by date
+    itineraryData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    // Group activities by date
+    const groupedByDate = itineraryData.reduce((acc, item) => {
+        (acc[item.date] = acc[item.date] || []).push(item);
+        return acc;
+    }, {});
+
+    // Iterate through each date group and create a box for each date
+    for (const [date, activities] of Object.entries(groupedByDate)) {
+        const dateDiv = document.createElement('div');
+        dateDiv.classList.add('day');
+
+        const formattedDate = new Date(date).toLocaleDateString('en-US', {
+            weekday: 'long'
+        }) + `<br>` + new Date(date).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric'
+        });
+
+        dateDiv.innerHTML = `<h3>${formattedDate}</h3>`;
+
+        activities.forEach(item => {
+            const activityDiv = document.createElement('div');
+            activityDiv.classList.add('activity');
+
+            // Parse time if available
+            const time = item.time ? new Date(`${item.date}T${item.time}`).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : '';
+
+            let htmlContent = `<h4>${item.activity}</h4>`;
+
+            if (time) {
+                htmlContent += `<p><b>Time:</b> ${time}</p>`;
+            }
+            if (item.duration) {
+                htmlContent += `<p><b>Duration:</b> ${item.duration} hours</p>`;
+            }
+            if (item.address) {
+                htmlContent += `<p><b>Address:</b> ${item.address}</p>`;
+            }
+            if (item.transport) {
+                htmlContent += `<p><b>Transport:</b> ${item.transport}</p>`;
+            }
+            if (item.additionalInformation) {
+                htmlContent += `<p><b>Additional Information:</b> ${item.additionalInformation}</p>`;
+            }
+            if (item.reservationRequired) {
+                htmlContent += `<p><i>Reservation Required?</i> Yes</p>`;
+
+                // Add to reminders checklist
+                const reminderItem = document.createElement('li');
+                reminderItem.classList.add('list-group-item');
+                reminderItem.innerHTML = `
+                    <label> <input type="checkbox" id="reminder-${item.activity}">
+                    <label for="reminder-${item.activity}"> <b>${item.activity} </b> <br> <i>${item.additionalInformation}</i> <br> ${formattedDate}</label>
+                </label>`;
+                remindersContainer.appendChild(reminderItem);
+
+             // Add event listener to handle checkbox state change
+             const checkbox = reminderItem.querySelector('input[type="checkbox"]');
+             checkbox.addEventListener('change', () => handleReminderCompletion(reminderItem, checkbox.checked));
+         }
+
+            activityDiv.innerHTML = htmlContent;
+            dateDiv.appendChild(activityDiv);
+        });
+
+        daysContainer.appendChild(dateDiv);
+    }
+        // Initial sorting
+        sortReminders();
+}
+// Function to handle reminder completion
+function handleReminderCompletion(item, isCompleted) {
+    if (isCompleted) {
+        item.classList.add('completed');
+        // Move to the bottom of the list
+        item.parentNode.appendChild(item);
+    } else {
+        item.classList.remove('completed');
+    // Re-sort reminders after completion change
+    sortReminders();
+    }
+    // Function to sort reminders based on date and completion status
+    function sortReminders() {
+    const remindersContainer = document.getElementById('remindersContainer').querySelector('.list-group');
+    const reminderItems = Array.from(remindersContainer.children);
+
+    reminderItems.sort((a, b) => {
+        const dateA = new Date(a.dataset.date);
+        const dateB = new Date(b.dataset.date);
+        const isCompletedA = a.classList.contains('completed');
+        const isCompletedB = b.classList.contains('completed');
+
+        if (isCompletedA && !isCompletedB) return 1;
+        if (!isCompletedA && isCompletedB) return -1;
+        return dateA - dateB;
+    });
+
+    reminderItems.forEach(item => remindersContainer.appendChild(item));
+};}
+
+//End of JSON
