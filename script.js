@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", function() {
     showPlanner();
     loadSavedItineraries();
 
-    document.getElementById('generateDaysButton').addEventListener('click', function() {
+    document.getElementById('tripForm').addEventListener('submit', function(event) {
         tripStart = document.getElementById("tripStart").value;
         tripEnd = document.getElementById("tripEnd").value;
 
@@ -309,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const dayPlans = daysContainer.getElementsByClassName('tabcontent');
         const calendarView = document.getElementById('calendarView');
         calendarView.innerHTML = '';
-        const itineraryName = document.getElementById('itineraryName').value;
+        const itineraryName = document.getElementById('tripName').value;
 
         if (!itineraryName) {
             alert('Please enter an itinerary name');
