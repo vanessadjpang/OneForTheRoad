@@ -1,3 +1,49 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const hardcodedUsers = [
+        { username: "user1", password: "password1" },
+        { username: "user2", password: "password2" },
+        { username: "user3", password: "password3" }
+    ];
+
+    const loginForm = document.getElementById("loginForm");
+    const loginContainer = document.getElementById("loginContainer");
+    const plannerContainer = document.getElementById("plannerContainer");
+    const loginError = document.getElementById("loginError");
+
+    loginForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        const user = hardcodedUsers.find(user => user.username === username && user.password === password);
+
+        if (user) {
+            alert("Login successful!");
+            window.location.href = "planner.html"; // Redirect to planner.html
+        } else {
+            loginError.style.display = "block";
+            alert("Invalid username or password.");
+        }
+    });
+});
+
+//for signup
+const signupForm = document.getElementById("signupForm");
+
+signupForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    const username = document.getElementById("signupUsername").value;
+    const email = document.getElementById("emailAddress").value;
+    const password = document.getElementById("signupPassword").value;
+
+    const newUser = { username: username, password: password };
+
+    alert("Signup successful!");
+
+    // to redirect to login page after signup
+    window.location.href = "index.html";
+});
+//end of signup
 
 //sidebar for planner page
 function toggleSidebar() {
