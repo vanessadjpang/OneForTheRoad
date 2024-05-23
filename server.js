@@ -32,17 +32,17 @@ app.get('/', (req, res) => {
 });
 
 // Route to serve the index HTML page
-app.get('/index.html', (req, res) => {
+app.get('/index', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Route to serve the signup HTML page
-app.get('/signup.html', (req, res) => {
+app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname, 'signup.html'));
 });
 
 // Route to serve the planner HTML page
-app.get('/planner.html', (req, res) => {
+app.get('/planner', (req, res) => {
     res.sendFile(path.join(__dirname, 'planner.html'));
 });
 
