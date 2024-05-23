@@ -126,6 +126,73 @@
         </div>
         <!-- End of reminders hardcoded-->
 
+        <h2 id="plannerHeader">Booking Suggestions</h2>
+<!--Card placement one card only -->
+  <div>
+    <style>
+        .flex-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px; /* Add some space between cards */
+            flex-wrap: wrap; /* This will make the cards wrap to the next line on smaller screens */
+            padding: 20px;
+        }
+        .card {
+            width: 18rem;
+            height: 20rem; /* Set the desired height */
+            overflow: hidden; /* Hide the overflow content */
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .card-img-top {
+            height: 10rem; /* Adjust the height of the image */
+            object-fit: cover; /* Cover the image to fit the specified height */
+        }
+        .card-body {
+            overflow-y: auto; /* Allow vertical scroll for card body */
+            height: 10rem; /* Adjust the height of the card body */
+            text-align: center;
+        }
+    </style>
+    <div class="flex-container">
+        <div class="card">
+            <img src="./images/Queens Peak USA.JPG" class="card-img-top" alt="Queens Peak Yosemite Park">
+            <div class="card-body">
+                <h5 class="card-title">RentalCars</h5>
+                <p class="card-text">To book cars</p>
+                <a href="https://www.rentalcars.com" class="btn btn-primary">Book now!</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="./images/Night Eiffel Paris France.JPG" class="card-img-top" alt="Eiffel Tower Night">
+            <div class="card-body">
+                <h5 class="card-title">Airbnb</h5>
+                <p class="card-text">Budget accomodation</p>
+                <a href="https://www.airbnb.com" class="btn btn-primary">Book now!</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="./images/Night Golden Gate Bridge USA.JPG" class="card-img-top" alt="Golden Gate Bridge Night">
+            <div class="card-body">
+                <h5 class="card-title">Booking.com</h5>
+                <p class="card-text">To book hotels</p>
+                <a href="https://www.booking.com" class="btn btn-primary">Book now!</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="./images/Hallstatt Austria.JPG" class="card-img-top" alt="Hallstatt Austria">
+            <div class="card-body">
+                <h5 class="card-title">Klook</h5>
+                <p class="card-text">Activities Booking</p>
+                <a href="https://www.klook.com" class="btn btn-primary">Book now!</a>
+            </div>
+        </div>
+    </div>
+<!-- End of card-->
+
+
+
         <!-- Footer within content -->      
         <div>
           <footer id="plannerFooter">
