@@ -426,11 +426,6 @@ input[type="time"] {
   justify-content: space-between;
 }
 
-.activityForm h3 {
-  margin-bottom: 10px;
-  font-size: 1.45rem; /* Adjust the font size here */
-  text-wrap: wrap;
-}
 
 .activityForm-item {
   display: flex;

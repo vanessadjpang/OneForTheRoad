@@ -20,52 +20,74 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let i = 0; i < days; i++) {
             const currentDate = new Date(tripStart);
             currentDate.setDate(currentDate.getDate() + i);
-            createActivityForm(currentDate.toISOString().split('T')[0]);
+            const dateStr = currentDate.toISOString().split('T')[0];
+            createDateContainer(dateStr);
+            createActivityForm(dateStr);
         }
     });
 
+    function createDateContainer(date) {
+        let dateContainer = document.getElementById(`date-container-${date}`);
+        if (!dateContainer) {
+            dateContainer = document.createElement('div');
+            dateContainer.id = `date-container-${date}`;
+            dateContainer.classList.add('dateContainer');
+            dateContainer.innerHTML = `<h2>Activities for ${date}</h2>`;
+            const newActivityButton = document.createElement('button');
+            newActivityButton.type = 'button';
+            newActivityButton.textContent = 'New Activity';
+            newActivityButton.classList.add('btn-new-activity');
+            newActivityButton.addEventListener('click', function () {
+                createActivityForm(date);
+            });
+            dateContainer.appendChild(newActivityButton);
+            activityFormContainer.appendChild(dateContainer);
+        }
+        return dateContainer;
+    }
+
     function createActivityForm(date) {
+        const dateContainer = createDateContainer(date);
         const activityForm = document.createElement('form');
         activityForm.classList.add('activityForm');
 
         activityForm.innerHTML = `
-            <h3>Activity for ${date}</h3>
             <div class="activityForm-item">
-                <label for="events">Activity:</label>
+                <label for="events-${date}">Activity:</label>
                 <input type="text" id="events-${date}" name="events" value="">
             </div>
             <div class="activityForm-item">
-                <label for="time">Time:</label>
+                <label for="time-${date}">Time:</label>
                 <input type="time" id="time-${date}" name="time" value="">
             </div>
             <div class="activityForm-item">
-                <label for="transportation">Transportation:</label>
+                <label for="transportation-${date}">Transportation:</label>
                 <input type="text" id="transportation-${date}" name="transportation" value="">
             </div>
             <div class="activityForm-item">
-                <label for="address">Address:</label>
+                <label for="address-${date}">Address:</label>
                 <input type="text" id="address-${date}" name="address" value="">
             </div>
             <div class="activityForm-item">
-                <label for="reservation">Reminder?</label>
+                <label for="reservation-${date}">Reminder?</label>
                 <input type="checkbox" id="reservation-${date}" name="reservation" value="">
             </div>
             <div class="activityForm-item">
-                <label for="additionalinformation">Additional Information</label>
+                <label for="additionalinformation-${date}">Additional Information</label>
                 <input type="text" id="additionalInformation-${date}" name="additionalinformation" value="">
             </div>
-            <button type="button" class="btn-add-activity">Add Another Activity</button>
-            
+            <button type="button" class="btn-delete-activity">Delete</button>
         `;
 
-
-        activityForm.querySelector('.btn-add-activity').addEventListener('click', function () {
-            const newActivity = activityForm.cloneNode(true);
-            newActivity.querySelector('h3').innerText = `Activity for ${date}`;
-            newActivity.querySelector('.btn-add-activity').remove();
-            activityFormContainer.appendChild(newActivity);
+        activityForm.querySelector('.btn-delete-activity').addEventListener('click', function () {
+            activityForm.remove();
+            // Check if there are no activity forms left, and hide the date container if empty
+            if (dateContainer.querySelectorAll('.activityForm').length === 0) {
+                dateContainer.querySelector('.btn-new-activity').style.display = 'block';
+            }
         });
 
-        activityFormContainer.appendChild(activityForm);
+        const newActivityButton = dateContainer.querySelector('.btn-new-activity');
+        dateContainer.insertBefore(activityForm, newActivityButton);
     }
 });
