@@ -50,3 +50,8 @@ app.get('/planner', (req, res) => {
 app.get('/activities.json', (req, res) => {
     res.sendFile(path.join(__dirname, 'activities.json'));
 });
+
+// Route to serve the seoul HTML page
+app.get('/seoul', (req, res) => {
+    res.sendFile(path.join(__dirname, 'seoul.html'));
+});
