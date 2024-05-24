@@ -91,3 +91,19 @@ app.post("/signup", async (req,res) => {
       res.redirect("/")
 })
 
+//Login to account
+app.post("/index", async (req,res) => {
+    const {username, password, emailAddress} = req.body
+    const user = await prisma.user.findFirst( {       
+        where: {
+            username: username,
+            password: password,
+        }
+    })
+    if (user) { 
+    res.redirect("/planner")
+    }
+    else
+    res.status(401).send({message: "Login failed"})
+})
+
