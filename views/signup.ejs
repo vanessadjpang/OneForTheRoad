@@ -21,7 +21,7 @@
 
 </head>
 <body>
-    <main>
+<main>
 
 <!--Start of top bar navigation-->
 <div class="navigation">
@@ -112,7 +112,7 @@
 <!-- Start of signup container -->
 <div class="signup-container"> 
   <h2>Signup</h2>
-  <form id="signupForm" action="/signup" method="post">
+  <form id="signupForm">
       <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" id="signupUsername" name="username" class="form-control" required>
@@ -129,7 +129,7 @@
           <button type="submit" class="btn btn-primary btn-block">Signup</button>
       </div>
   </form>
-  <p>Already have an account? <a href="index">Login here</a></p>
+  <p>Already have an account? <a href="/views/index.ejs">Login here</a></p>
 </div>
 <!-- End of signup container -->
 
@@ -143,7 +143,7 @@
         </footer>
       </div>
 
-    <script src="script.js"></script>
+      <script src="signup.js"></script>
     
 </body>
 </html>

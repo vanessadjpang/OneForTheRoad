@@ -80,7 +80,7 @@
       <div class="carousel-item active">
         <img src="./images/Lucerne Church Switzerland.JPG" class="bd-placeholder-img" width="100%" height="250px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
           <div class="carouselContainer">
-            <div class="carousel-caption">
+            <div class="carousel-caption text-start">
             <h1>Lucerne</h1>
             <p>Switzerland</p>
             </div>
@@ -118,7 +118,7 @@
 <div class="login-container" id="loginContainer">
   <h2>Login</h2>
   
-  <form id="loginForm" action="/index" method="post">
+  <form id="loginForm">
     <div class="form-group">
       <label for="username" class="label">Username:</label>
       <input type="text" id="username" name="username" class="form-control" required>
@@ -129,8 +129,7 @@
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-primary btn-block">Login</button>
-      <!-- <button type="submit" class="btn btn-primary btn-block">Login</button> -->
-    </div>
+        </div>
     <div id="loginError" class="login-error" style="display: none;">Invalid username or password.</div>
 </form>
         <p>Don't have an account? <a href="signup">Sign up here</a></p>
@@ -145,7 +144,8 @@
         <p> Disclaimer: This website is created for learning purposes only. The information provided here should not be considered professional advice. Please note that we make no guarantees regarding the accuracy, completeness, or reliability of the contents of this website. Any actions you take based on the contents of this website are at your own risk. We are not liable for any losses or damages incurred from the use of this website.</p>
       </footer>
     </div>
-    
+  <script src="login2.js"></script>
+
 </body>
 </html>
 

@@ -2,16 +2,18 @@
 require("dotenv").config();
 
 // Needed for Express
-var express = require('express')
-var app = express()
+var express = require('express');
+var app = express();
 var path = require('path'); // Add this line to require the path module
 
 // Needed for EJS
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); // Specify the views directory
 
 // Needed for parsing form data
 app.use(express.json());       
 app.use(express.urlencoded({extended: true}));
+
 
 // Needed for Prisma to connect to database
 const { PrismaClient } = require('@prisma/client');
@@ -27,15 +29,10 @@ app.listen(8000);
 app.use(express.static(__dirname));
 
 // Serve static files from the root directory
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, "js")));
 
 // Route to serve the main page
 app.get('/', (req, res) => {
-    res.render('index');
-});
-
-// Route to serve the index HTML page
-app.get('/index', (req, res) => {
     res.render('index');
 });
 
@@ -46,7 +43,7 @@ app.get('/signup', (req, res) => {
 
 // Route to serve the planner HTML page
 app.get('/planner', (req, res) => {
-    res.render('planner');
+    res.render('planner', {data: " "});
 });
 
 // Serve JSON data
@@ -59,29 +56,25 @@ app.get('/seoul', (req, res) => {
     res.render('seoul');
 });
 
-//Problem Statement page
-app.get('/problemstatement', async function(req,res){
-    //filter database
-    const findUser = await prisma.coke.findMany({
-        where: {
-            name: 'Sprite',
-        }
-    });
-    console.log(findUser); 
-    res.render('problemstatement', { user: findUser });
-});
-
-//to automatically fetch data from db - coke
-// const users = await prisma.coke.findMany();
-// console.log(users); 
+// Problem Statement page
+// app.get('/problemstatement', async function(req,res){
+//     //filter database
+//     const findUser = await prisma.coke.findMany({
+//         where: {
+//             name: 'Sprite',
+//         }
+//     });
+//     console.log(findUser); 
+//     res.render('problemstatement', { user: findUser });
+// });
 
 
 //Create users at signup page
-app.post("/signup", async (req,res) => {
-    const {username, password, emailAddress} = req.body
+app.post("/signup", async (req, res) => {
+    const { username, password, emailAddress} = req.body;
     try {
-        const salt = await bcrypt.genSalt(1)
-        const hashedPassword = await bcrypt.hash(password, salt)
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password, salt);
     
     await prisma.user.create({
         data: {
@@ -89,36 +82,46 @@ app.post("/signup", async (req,res) => {
             password: hashedPassword,
             emailAddress: emailAddress,
         },
-      })
-      res.redirect("/")
+      });
+      console.log('User created successfully');
+      res.status(201).json({message: 'Signup successful'});
     }
     catch (err) {
-        console.error(err)
+        console.error("Error during signup:",err);
+    res.status(500).send({message:"Internal Server Error"});
     }
-})
-
-
+});
 
 //Login to account
-app.post("/index", async (req,res) => {
-    const {username, password, emailAddress} = req.body
+app.post("/", async (req,res) => {
+    const {username, password} = req.body;
+    console.log('Login attempt for username:', username);
+
     try {
-        const salt = await bcrypt.genSalt(666)
-        const hashedPassword = bcrypt.hash(password, salt)
-    
     const user = await prisma.user.findFirst( {       
         where: {
             username: username,
-            password: hashedPassword,
-        }
-    })
-    if (user) { 
-    res.redirect("/planner")
+        },
+    });
+
+    if (!user) {
+        console.warn("Login failed: User not found");
+            return res.status(401).json({ message: "Login failed: User not found" });
     }
-    else
-    res.status(401).send({message: "Login failed"})
-    }   
+
+    const validPassword = await bcrypt.compare(password, user.password);
+
+    if (validPassword) { 
+    console.log("Login successful for", username);
+    return res.status(200).send({ message: 'Login successful' }); // This line returns JSON response indicating success
+    }
+    else {
+    console.warn("Login failed: Invalid password");
+    return res.status(401).send({message: "Login failed"});
+    }
+}
         catch (err) {
-        console.error(err)
+        console.error("Error during Login:",err);
+        return res.status(500).send({message:"Internal Server Error"});
     }
-})
+});

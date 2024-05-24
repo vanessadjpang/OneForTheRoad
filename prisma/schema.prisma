@@ -15,9 +15,10 @@ datasource db {
 
 model User {
   id        Int       @id @default(autoincrement())
-  username     String
-  password   String
+  username  String    @unique
+  password  String
   emailAddress  String
+  createdAt DateTime @default(now())
 }
 
 model Activities {
@@ -45,9 +46,4 @@ model Itinerary {
   updatedAt DateTime @updatedAt
   startDate   DateTime
   endDate  DateTime
-}
-
-model Coke {
-  id Int @id @default(autoincrement())
-  name String
 }
