@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (users[username] && users[username] === password) {
                 alert("Login successful!");
-                window.location.href = 'planner.html';
+                window.location.href = 'planner';
             } else {
                 alert("Invalid username or password. Please try again.");
             }

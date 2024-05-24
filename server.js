@@ -14,7 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // Needed for Prisma to connect to database
-const { PrismaClient } = require('@prisma/client')
+const { PrismaClient } = require('@prisma/client');
+const { read, readSync } = require("fs");
 const prisma = new PrismaClient();
 
 // Tells the app which port to run on
@@ -28,30 +29,36 @@ app.use(express.static(path.join(__dirname)));
 
 // Route to serve the main page
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.render('index');
 });
 
 // Route to serve the index HTML page
 app.get('/index', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.render('index');
 });
 
 // Route to serve the signup HTML page
 app.get('/signup', (req, res) => {
-    res.sendFile(path.join(__dirname, 'signup.html'));
+    res.render('signup');
 });
 
 // Route to serve the planner HTML page
 app.get('/planner', (req, res) => {
-    res.sendFile(path.join(__dirname, 'planner.html'));
+    res.render('planner');
 });
 
 // Serve JSON data
 app.get('/activities.json', (req, res) => {
-    res.sendFile(path.join(__dirname, 'activities.json'));
+    res.render('activities.json');
 });
 
 // Route to serve the seoul HTML page
 app.get('/seoul', (req, res) => {
-    res.sendFile(path.join(__dirname, 'seoul.html'));
+    res.render('seoul');
 });
+
+//Problem Statement page
+app.get('/problemstatement',function(req,res){
+    res.render('problemstatement');
+});
+
