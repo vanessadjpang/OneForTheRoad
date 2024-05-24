@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const tripForm = document.getElementById('tripForm');
     const activityFormContainer = document.getElementById('activityForm');
+    const summaryContainer = document.getElementById('summaryContainer');
+    const generateSummaryButton = document.getElementById('generateSummaryButton');
 
     tripForm.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -13,8 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Clear previous activity forms
+        // Clear previous activity forms and summary
         activityFormContainer.innerHTML = '';
+        summaryContainer.innerHTML = '';
 
         const days = (tripEnd - tripStart) / (1000 * 60 * 60 * 24) + 1;
         for (let i = 0; i < days; i++) {
@@ -24,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function () {
             createDateContainer(dateStr);
             createActivityForm(dateStr);
         }
+
+        // Make sure the "Generate Summary" button is visible
+        generateSummaryButton.style.display = 'block';
     });
 
     function createDateContainer(date) {
@@ -89,5 +95,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const newActivityButton = dateContainer.querySelector('.btn-new-activity');
         dateContainer.insertBefore(activityForm, newActivityButton);
+    }
+
+    // Event listener for the "Generate Summary" button
+    generateSummaryButton.addEventListener('click', function () {
+        generateSummary();
+    });
+
+    function generateSummary() {
+        summaryContainer.innerHTML = ''; // Clear previous summary
+
+        const dateContainers = document.querySelectorAll('.dateContainer');
+        dateContainers.forEach(dateContainer => {
+            const date = dateContainer.id.replace('date-container-', '');
+            const activityForms = dateContainer.querySelectorAll('.activityForm');
+            if (activityForms.length > 0) {
+                const daySummary = document.createElement('div');
+                daySummary.classList.add('daySummary');
+                daySummary.innerHTML = `<h3>Summary for ${date}</h3>`;
+                activityForms.forEach(activityForm => {
+                    const activitySummary = document.createElement('div');
+                    activitySummary.classList.add('activitySummary');
+                    activitySummary.innerHTML = `
+                        <p><strong>Activity:</strong> ${activityForm.querySelector(`#events-${date}`).value}</p>
+                        <p><strong>Time:</strong> ${activityForm.querySelector(`#time-${date}`).value}</p>
+                        <p><strong>Transportation:</strong> ${activityForm.querySelector(`#transportation-${date}`).value}</p>
+                        <p><strong>Address:</strong> ${activityForm.querySelector(`#address-${date}`).value}</p>
+                        <p><strong>Reminder:</strong> ${activityForm.querySelector(`#reservation-${date}`).checked ? 'Yes' : 'No'}</p>
+                        <p><strong>Additional Information:</strong> ${activityForm.querySelector(`#additionalInformation-${date}`).value}</p>
+                    `;
+                    daySummary.appendChild(activitySummary);
+                });
+                summaryContainer.appendChild(daySummary);
+            }
+        });
     }
 });
