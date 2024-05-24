@@ -392,6 +392,7 @@ input[type="time"] {
 #generateSummaryButton {
   display: flex;
   margin-left: 35%;
+  margin-bottom: 20px;
 }
 
 #summaryContainer {

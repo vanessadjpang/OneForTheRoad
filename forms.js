@@ -112,17 +112,25 @@ document.addEventListener('DOMContentLoaded', function () {
             if (activityForms.length > 0) {
                 const daySummary = document.createElement('div');
                 daySummary.classList.add('daySummary');
-                daySummary.innerHTML = `<h3>Summary for ${date}</h3>`;
+                daySummary.innerHTML = `<h3>${date}</h3>`;
                 activityForms.forEach(activityForm => {
                     const activitySummary = document.createElement('div');
                     activitySummary.classList.add('activitySummary');
+                    const activity = activityForm.querySelector(`#events-${date}`).value;
+                    const time = activityForm.querySelector(`#time-${date}`).value;
+                    const transportation = activityForm.querySelector(`#transportation-${date}`).value;
+                    const address = activityForm.querySelector(`#address-${date}`).value;
+                    const reservation = activityForm.querySelector(`#reservation-${date}`).checked ? 'Yes' : '';
+                    const additionalInformation = activityForm.querySelector(`#additionalInformation-${date}`).value;
+
+                    // Build the summary item only if fields are filled
                     activitySummary.innerHTML = `
-                        <p><strong>Activity:</strong> ${activityForm.querySelector(`#events-${date}`).value}</p>
-                        <p><strong>Time:</strong> ${activityForm.querySelector(`#time-${date}`).value}</p>
-                        <p><strong>Transportation:</strong> ${activityForm.querySelector(`#transportation-${date}`).value}</p>
-                        <p><strong>Address:</strong> ${activityForm.querySelector(`#address-${date}`).value}</p>
-                        <p><strong>Reminder:</strong> ${activityForm.querySelector(`#reservation-${date}`).checked ? 'Yes' : 'No'}</p>
-                        <p><strong>Additional Information:</strong> ${activityForm.querySelector(`#additionalInformation-${date}`).value}</p>
+                        ${activity ? `<p><strong>Activity:</strong> ${activity}</p>` : ''}
+                        ${time ? `<p><strong>Time:</strong> ${time}</p>` : ''}
+                        ${transportation ? `<p><strong>Transportation:</strong> ${transportation}</p>` : ''}
+                        ${address ? `<p><strong>Address:</strong> ${address}</p>` : ''}
+                        ${reservation ? `<p><strong>Reminder:</strong> ${reservation}</p>` : ''}
+                        ${additionalInformation ? `<p><strong>Additional Information:</strong> ${additionalInformation}</p>` : ''}
                     `;
                     daySummary.appendChild(activitySummary);
                 });
