@@ -46,3 +46,8 @@ model Itinerary {
   startDate   DateTime
   endDate  DateTime
 }
+
+model Coke {
+  id Int @id @default(autoincrement())
+  name String
+}

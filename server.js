@@ -58,7 +58,36 @@ app.get('/seoul', (req, res) => {
 });
 
 //Problem Statement page
-app.get('/problemstatement',function(req,res){
-    res.render('problemstatement');
+app.get('/problemstatement', async function(req,res){
+    //filter database
+    const findUser = await prisma.coke.findMany({
+        where: {
+            name: 'Sprite',
+        }
+    });
+    console.log(findUser); 
+    res.render('problemstatement', { user: findUser });
 });
+
+//to automatically fetch data from db - coke
+// const users = await prisma.coke.findMany();
+// console.log(users); 
+
+
+
+
+
+//Create users at signup page
+app.post("/signup", async (req,res) => {
+    const {username, password, emailAddress} = req.body
+
+    await prisma.user.create({
+        data: {
+            username: username,
+            password: password,
+            emailAddress: emailAddress,
+        },
+      })
+      res.redirect("/")
+})
 
