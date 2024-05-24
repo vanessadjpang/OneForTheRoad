@@ -70,7 +70,7 @@
     z-index: 2;
   }
 
-
+/*Start of side bar navigation*/
   .hamburger {
     top: 45px;
     right: 15px;
@@ -81,8 +81,6 @@
     position: fixed;
     z-index: 2;
   }
-
-
   .sidebar {
     height: 100%;
     width: 150px;
@@ -95,7 +93,6 @@
     overflow-x: hidden;
     z-index: 2;
   }
-
   .sidebar.visible {
     right: 0; /* Show the sidebar */
   }
@@ -125,17 +122,16 @@
   .sidebar ul li a.active:hover {
     background-color: #0056b3;
   }
-  
   .content {
     flex-grow: 1;
     transition: margin-right 0.3s;
     padding: 20px;
     margin-right: 0;
   }
-
   .shifted {
     margin-right: 150px;
   }
+/*End of side bar navigation*/
 
   .daysContainer {
     display: grid;
@@ -144,7 +140,7 @@
     flex-wrap: wrap;
 }
 
-/* Responsive layout for smaller screens */
+/* Start of Responsive layout for smaller screens */
 @media (max-width: 1200px) {
   .daysContainer {
       grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
@@ -156,7 +152,9 @@
       grid-template-columns: repeat(1, 1fr); /* 1 column for small screens */
   }
 }
+/* End of Responsive layout for smaller screens */
 
+/*Start of JSON container*/
 .day {
     padding: 10px;
     background-color: #fff;
@@ -172,44 +170,9 @@
   font-size: 0.8rem; /* Smaller text size */
 }
 
-/* Style the calendar table */
-.calendar-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 0.8rem; /* Smaller text size */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
+/*End of JSON container*/
 
-.calendar-table th,
-.calendar-table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-.calendar-table th {
-  background-color: #f4f4f4;
-  font-weight: bold;
-}
-
-.calendar-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.calendar-table tbody tr:hover {
-  background-color: #f1f1f1;
-}
-
-
-
-/* Add strikethrough for completed items */
-.completed label {
-  text-decoration: line-through;
-  color: gray;
-}
-
+/* Start of Image for planner page*/
 #bannerImage {
   width: 75%;
   height: 450px;
@@ -227,9 +190,9 @@
   padding: 20px;
   border-radius: 10px;
 }
+/* End of Image for planner page*/
 
-/*. tripStart and tripEnd form */
-
+/*. Start of tripStart and tripEnd form */
 #tripForm {
   padding: 20px;
   border-radius: 10px;
@@ -241,35 +204,29 @@
   margin-left: 20%;
   margin-top: 50px;
 }
-
 .tripForm-group {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
   width: 100%;
 }
-
 .tripForm-group.inline {
   display: flex;
   justify-content: space-between;
 }
-
 .tripForm-item {
   display: flex;
   flex-direction: column;
   flex: 1;
   margin-left: 10px;
 }
-
 .tripForm-item:first-child {
   margin-left: 0;
 }
-
 label {
   margin-bottom: 5px;
   text-align: left;
 }
-
 input[type="text"],
 input[type="date"],
 input[type="time"] {
@@ -279,7 +236,6 @@ input[type="time"] {
   width: 100%;
   box-sizing: border-box;
 }
-
 .btn-submit {
   background-color: #007bff;
   color: white;
@@ -292,68 +248,54 @@ input[type="time"] {
   margin-top: 20px;
 
 }
-
 .btn-submit:hover {
   background-color: #0056b3;
 }
-
-
 #plannerFooter {
   margin-top: 200px;
 }
+/*. End of tripStart and tripEnd form */
 
-/* countdown */
+#daysContainer {
+  margin-bottom: 200px;
+}
+
+/* Start of countdown for Seoul*/
 .countdown-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: snow;
   background: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
-  padding: 20px;
+  padding: 5px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Light shadow for depth */
   max-width: 400px;
   margin: 0 auto; /* Center horizontally */
   text-align: center;
   margin-bottom: 50px;
-}
-
-
-#daysContainer {
-  margin-bottom: 200px;
-}
-
-/* Countdown timer fake */
-.countdown-container {
-  text-align: center;
-  background-color: snow;
-  padding: 5px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
-  width: 75%;
   position:block;
-  display: flex;
+  width: 75%;
 }
-
 #countdown {
   display: flex;
   justify-content: center;
   gap: 10px;
   font-size: 1rem;
 }
-
 #countdown div {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-weight: lighter;
 }
-
 #countdown span {
   font-weight: bold;
 }
+/* End of countdown for Seoul*/
 
-/* reminders fake */
+/* Start of reminders for Seoul */
 .reminders-container h3 {
   border-bottom: 2px solid #007bff;
   padding-bottom: 10px;
@@ -361,12 +303,10 @@ input[type="time"] {
   margin-top: 20px;
   text-align: center;
 }
-
 #remindersContainer {
   width: 80%;
   margin-left: 10%;
 }
-
 .list-group-item {
   display: flex;
   align-items: center;
@@ -381,15 +321,12 @@ input[type="time"] {
   width: 90%;
   margin-left: 5%
 }
-
 .list-group-item:hover {
   background-color: #f1f1f1;
 }
-
 .list-group-item input[type="checkbox"] {
   display: none; /* Hide the default checkbox */
 }
-
 .list-group-item input[type="checkbox"] + label::before {
   content: '';
   display: inline-block;
@@ -401,16 +338,21 @@ input[type="time"] {
   transition: background-color 0.1s;
   margin-right: 5px;
 }
-
 .list-group-item input[type="checkbox"]:checked + label::before {
   background-color: #007bff; /* Change color when checked */
   border-color: #007bff;
 }
-
 .list-group-item label {
   flex-grow: 1;
 }
+/* Add strikethrough for completed items */
+.completed label {
+  text-decoration: line-through;
+  color: gray;
+}
+/* End of reminders for Seoul */
 
+/*Start of planner page forms */
 #activityForm {
   padding: 20px;
   border-radius: 10px;
@@ -426,7 +368,6 @@ input[type="time"] {
   justify-content: space-between;
 }
 
-
 .activityForm-item {
   display: flex;
   flex-direction: column;
@@ -439,3 +380,21 @@ input[type="time"] {
   margin-left: 10px;
 }
 
+.dateContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.daySummary{
+padding: 10px;
+background-color: #fff;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+border-radius: 10px;
+font-size: 0.8rem; /* Smaller text size */
+border-top: 1px solid #ddd;
+padding-top: 5px;
+margin-top: 5px;
+margin-bottom: 20px;
+}
+/*End of planner page forms*/
