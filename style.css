@@ -389,6 +389,11 @@ input[type="time"] {
   width: 90%;
 }
 
+#generateSummaryButton {
+  display: flex;
+  margin-left: 35%;
+}
+
 #summaryContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
