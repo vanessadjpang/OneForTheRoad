@@ -74,9 +74,6 @@ app.get('/problemstatement', async function(req,res){
 // console.log(users); 
 
 
-
-
-
 //Create users at signup page
 app.post("/signup", async (req,res) => {
     const {username, password, emailAddress} = req.body
@@ -106,4 +103,3 @@ app.post("/index", async (req,res) => {
     else
     res.status(401).send({message: "Login failed"})
 })
-
