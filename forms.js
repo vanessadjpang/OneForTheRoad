@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
         activityForm.classList.add('activityForm');
 
         activityForm.innerHTML = `
-            <h3>Activities for ${date}</h3>
+            <h3>Activity for ${date}</h3>
             <div class="activityForm-item">
                 <label for="events">Activity:</label>
                 <input type="text" id="events-${date}" name="events" value="">
