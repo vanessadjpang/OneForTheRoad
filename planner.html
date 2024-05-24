@@ -119,8 +119,25 @@
       </form>
       <!-- End of tripForm -->
 
-      <div id="activityForms"></div>
-
+      <!-- Start of activityForm-->
+      <div id="activityForm">
+        <form id="activityForm" style="display:none;">
+            <label for="events">Activity:</label><br>
+            <input type="text" id="events" name="events" value=""><br>
+            <label for="transportation">Time:</label><br>
+            <input type="text" id="transportation" name="transportation" value=""><br>
+            <label for="time">Transportation:</label><br>
+            <input type="time" id="time" name="time" value=""><br>
+            <label for="address">Address:</label><br>
+            <input type="text" id="address" name="address" value=""><br>
+            <label for="reservation">Reminder?</label><br>
+            <input type="checkbox" id="reservation" name="reservation" value=""><br>
+            <label for="additionalinformation">Additional Information</label><br>
+            <input type="text" id="additionalInformation" name="additionalinformation" value=""><br><br>
+            <input type="submit" value="Submit">
+        </form>
+      </div>
+      <!-- End of activityForm-->
       
 <!-- Footer within content -->      
         <div>
@@ -135,5 +152,6 @@
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="script.js"></script>
+    <script src="forms.js"></script>
 </body>
 </html>

@@ -239,6 +239,7 @@
   flex-direction: column;
   align-items: center;
   margin-left: 20%;
+  margin-top: 50px;
 }
 
 .tripForm-group {
@@ -408,4 +409,55 @@ input[type="time"] {
 
 .list-group-item label {
   flex-grow: 1;
+}
+
+#activityForm {
+  padding: 20px;
+  border-radius: 10px;
+  width: 30%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20%;
+  margin-top: 50px;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 0.8rem;
+}
+
+.activityForm h3 {
+  margin-bottom: 10px;
+  font-size: 1.45rem; /* Adjust the font size here */
+  text-wrap: wrap;
+}
+
+.activityForm-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.activityForm-group.inline {
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.activityForm-group.inline {
+  display: flex;
+  justify-content: space-between;
+}
+
+.activityForm-item {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 10px;
+}
+
+.activityForm-item:first-child {
+  margin-left: 0;
 }
