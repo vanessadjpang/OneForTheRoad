@@ -110,9 +110,17 @@ document.addEventListener('DOMContentLoaded', function () {
             const date = dateContainer.id.replace('date-container-', '');
             const activityForms = dateContainer.querySelectorAll('.activityForm');
             if (activityForms.length > 0) {
+                const dateObj = new Date(date);
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = new Date(date).toLocaleDateString('en-US', {
+                    weekday: 'long'
+                }) + `<br>` + new Date(date).toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'long', day: 'numeric'
+                });
+
                 const daySummary = document.createElement('div');
                 daySummary.classList.add('daySummary');
-                daySummary.innerHTML = `<h3>${date}</h3>`;
+                daySummary.innerHTML = `<h3>${formattedDate}</h3>`;
                 activityForms.forEach(activityForm => {
                     const activitySummary = document.createElement('div');
                     activitySummary.classList.add('activitySummary');
