@@ -16,34 +16,6 @@
     background-size: 100% 20px;
   }
 
-  .wheel {
-    position: absolute;
-    width: 35px;
-    height: 35px;
-    background: #555;
-    border-radius: 50%;
-    margin-left: 30%;
-    margin-right: 30%;
-    margin-bottom: 78px;
-}
-.wheel.left {
-  bottom: -10px;
-  left: 20px;
-}
-.wheel.right {
-  bottom: -10px;
-  right: 20px;
-}
-.handle {
-  position: absolute;
-  bottom: -10px;
-  left: 46%;
-  width: 70px;
-  height: 15px;
-  background: #555;
-  border-radius: 10px 10px 0 0;
-  margin-bottom: 413px;
-}
   .login-container h2 {
     margin-bottom: 20px;
     text-align: center;
