@@ -2,7 +2,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const tripForm = document.getElementById('tripForm');
     const activityFormContainer = document.getElementById('activityForm');
     const summaryContainer = document.getElementById('summaryContainer');
+    const remindersContainer = document.getElementById('remindersContainer');
+    const remindersHeader = document.getElementById('remindersHeader');
     const generateSummaryButton = document.getElementById('generateSummaryButton');
+    const addReminderButton = document.getElementById('addReminderButton');
+    const showExample = document.getElementById('showExample');
 
     tripForm.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -15,9 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Clear previous activity forms and summary
+        // Clear previous activity forms, summaries, and reminders
         activityFormContainer.innerHTML = '';
         summaryContainer.innerHTML = '';
+        remindersContainer.innerHTML = '';
 
         const days = (tripEnd - tripStart) / (1000 * 60 * 60 * 24) + 1;
         for (let i = 0; i < days; i++) {
@@ -30,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Make sure the "Generate Summary" button is visible
         generateSummaryButton.style.display = 'block';
+        addReminderButton.style.display = 'block';
     });
 
     function createDateContainer(date) {
@@ -100,6 +106,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event listener for the "Generate Summary" button
     generateSummaryButton.addEventListener('click', function () {
         generateSummary();
+        generateReminders();
+        // Show the reminders header and container
+        remindersHeader.style.display = 'block';
+        remindersContainer.style.display = 'block';
+        showExample.style.display = 'block';
+    });
+
+    addReminderButton.addEventListener('click', function () {
+        addNewReminder();
     });
 
     function generateSummary() {
@@ -111,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const activityForms = dateContainer.querySelectorAll('.activityForm');
             if (activityForms.length > 0) {
                 const dateObj = new Date(date);
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                 const formattedDate = new Date(date).toLocaleDateString('en-US', {
                     weekday: 'long'
                 }) + `<br>` + new Date(date).toLocaleDateString('en-US', {
@@ -145,5 +159,73 @@ document.addEventListener('DOMContentLoaded', function () {
                 summaryContainer.appendChild(daySummary);
             }
         });
+    }
+
+    function generateReminders() {
+        remindersContainer.innerHTML = ''; // Clear previous reminders
+
+        const dateContainers = document.querySelectorAll('.dateContainer');
+        dateContainers.forEach(dateContainer => {
+            const date = dateContainer.id.replace('date-container-', '');
+            const activityForms = dateContainer.querySelectorAll('.activityForm');
+            activityForms.forEach(activityForm => {
+                const reservation = activityForm.querySelector(`#reservation-${date}`).checked;
+                if (reservation) {
+                    const reminder = createReminderElement(date, activityForm);
+                    remindersContainer.appendChild(reminder);
+                }
+            });
+        });
+    }
+
+    function createReminderElement(date, activityForm) {
+        const reminder = document.createElement('div');
+        reminder.classList.add('reminder');
+
+        const activity = activityForm.querySelector(`#events-${date}`).value;
+        const additionalInformation = activityForm.querySelector(`#additionalInformation-${date}`).value;
+
+        const dateObj = new Date(date);
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = dateObj.toLocaleDateString('en-US', options);
+
+        reminder.innerHTML = `
+            <input type="checkbox" class="reminder-checkbox">
+            <p><strong>Date:</strong> ${formattedDate}</p>
+            <p><strong>Activity:</strong> ${activity}</p>
+            <p><strong>Additional Information:</strong> ${additionalInformation}</p>
+        `;
+
+        reminder.querySelector('.reminder-checkbox').addEventListener('change', function () {
+            if (this.checked) {
+                reminder.style.textDecoration = 'line-through';
+            } else {
+                reminder.style.textDecoration = 'none';
+            }
+        });
+
+        return reminder;
+    }
+
+    function addNewReminder() {
+        const reminder = document.createElement('div');
+        reminder.classList.add('reminder');
+
+        reminder.innerHTML = `
+            <input type="checkbox" class="reminder-checkbox">
+            <p><strong>Date:</strong> <input type="date" class="reminder-date"></p>
+            <p><strong>Activity:</strong> <input type="text" class="reminder-activity"></p>
+            <p><strong>Additional Information:</strong> <input type="text" class="reminder-info"></p>
+        `;
+
+        reminder.querySelector('.reminder-checkbox').addEventListener('change', function () {
+            if (this.checked) {
+                reminder.style.textDecoration = 'line-through';
+            } else {
+                reminder.style.textDecoration = 'none';
+            }
+        });
+
+        remindersContainer.appendChild(reminder);
     }
 });
