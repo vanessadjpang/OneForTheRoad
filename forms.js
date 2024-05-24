@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         activityForm.querySelector('.btn-add-activity').addEventListener('click', function () {
             const newActivity = activityForm.cloneNode(true);
-            newActivity.querySelector('h3').innerText = `Additional Activity for ${date}`;
+            newActivity.querySelector('h3').innerText = `Activity for ${date}`;
             newActivity.querySelector('.btn-add-activity').remove();
             activityFormContainer.appendChild(newActivity);
         });

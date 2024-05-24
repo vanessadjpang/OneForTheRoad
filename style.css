@@ -414,17 +414,17 @@ input[type="time"] {
 #activityForm {
   padding: 20px;
   border-radius: 10px;
-  width: 30%;
+  width: 100%;
   text-align: center;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: 20%;
   margin-top: 50px;
   flex-wrap: wrap;
   gap: 20px;
   font-size: 0.8rem;
+  flex: 1 3 calc(33.333% - 20px);
+  justify-content: space-between;
 }
+
 
 .activityForm h3 {
   margin-bottom: 10px;
@@ -432,32 +432,15 @@ input[type="time"] {
   text-wrap: wrap;
 }
 
-.activityForm-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  width: 100%;
-  flex-wrap: wrap;
-}
-
-.activityForm-group.inline {
-  display: flex;
-  justify-content: space-between;
-  
-}
-
-.activityForm-group.inline {
-  display: flex;
-  justify-content: space-between;
-}
-
 .activityForm-item {
   display: flex;
   flex-direction: column;
   flex: 1;
   margin-left: 10px;
+  flex-wrap: wrap;
 }
 
 .activityForm-item:first-child {
   margin-left: 0;
 }
+
