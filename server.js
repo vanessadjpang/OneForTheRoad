@@ -17,6 +17,8 @@ app.use(express.urlencoded({extended: true}));
 const { PrismaClient } = require('@prisma/client');
 const { read, readSync } = require("fs");
 const prisma = new PrismaClient();
+const bcrypt = require('bcrypt');
+const { hash } = require("crypto");
 
 // Tells the app which port to run on
 app.listen(8000);
@@ -77,24 +79,37 @@ app.get('/problemstatement', async function(req,res){
 //Create users at signup page
 app.post("/signup", async (req,res) => {
     const {username, password, emailAddress} = req.body
-
+    try {
+        const salt = await bcrypt.genSalt(1)
+        const hashedPassword = await bcrypt.hash(password, salt)
+    
     await prisma.user.create({
         data: {
             username: username,
-            password: password,
+            password: hashedPassword,
             emailAddress: emailAddress,
         },
       })
       res.redirect("/")
+    }
+    catch (err) {
+        console.error(err)
+    }
 })
+
+
 
 //Login to account
 app.post("/index", async (req,res) => {
     const {username, password, emailAddress} = req.body
+    try {
+        const salt = await bcrypt.genSalt(666)
+        const hashedPassword = bcrypt.hash(password, salt)
+    
     const user = await prisma.user.findFirst( {       
         where: {
             username: username,
-            password: password,
+            password: hashedPassword,
         }
     })
     if (user) { 
@@ -102,4 +117,8 @@ app.post("/index", async (req,res) => {
     }
     else
     res.status(401).send({message: "Login failed"})
+    }   
+        catch (err) {
+        console.error(err)
+    }
 })
