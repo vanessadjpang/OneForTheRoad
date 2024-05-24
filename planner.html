@@ -88,35 +88,36 @@
 
         <!-- Start of tripForm -->
         <form id="tripForm">
-          <div class="form-group">
+          <div class="tripForm-group">
               <label for="tripName">Trip Name:</label>
               <input type="text" id="tripName" name="tripName" required placeholder="Enter trip name">
           </div>
 
-          <div class="form-group inline">
-              <div class="form-item">
+          <div class="tripForm-group inline">
+              <div class="tripForm-item">
                   <label for="tripStart">Start Date:</label>
                   <input type="date" id="tripStart" name="tripStart" required>
               </div>
-              <div class="form-item">
+              <div class="tripForm-item">
                   <label for="tripEnd">End Date:</label>
                   <input type="date" id="tripEnd" name="tripEnd" required>
               </div>
           </div>
 
-          <div class="form-group inline">
-              <div class="form-item">
+          <div class="tripForm-group inline">
+              <div class="tripForm-item">
                   <label for="tripStartTime">Start Time (optional):</label>
                   <input type="time" id="tripStartTime" name="tripStartTime">
               </div>
-              <div class="form-item">
+              <div class="tripForm-item">
                   <label for="tripEndTime">End Time (optional):</label>
                   <input type="time" id="tripEndTime" name="tripEndTime">
               </div>
           </div>
 
-          <button type="submit" class="btn-submit" ">Generate Template</button>
+          <button type="submit" class="btn-submit" ">Lets go!</button>
       </form>
+      <!-- End of tripForm -->
 
       <div id="activityForms"></div>
 

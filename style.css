@@ -4,14 +4,46 @@
     justify-content: center;
     width: 40%;
     text-align: center;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: hsla(187, 19%, 82%, 0.445);
     margin-left: 30%;
     margin-bottom: 150px;
     margin-top: 45px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #e0e0e0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 0px solid #999;
+    background-image: linear-gradient(0deg, #e0e0e0 10%, #d1d1d1 10%, #d1d1d1 20%, #e0e0e0 20%);
+    background-size: 100% 20px;
   }
+
+  .wheel {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background: #555;
+    border-radius: 50%;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 78px;
+}
+.wheel.left {
+  bottom: -10px;
+  left: 20px;
+}
+.wheel.right {
+  bottom: -10px;
+  right: 20px;
+}
+.handle {
+  position: absolute;
+  bottom: -10px;
+  left: 46%;
+  width: 70px;
+  height: 15px;
+  background: #555;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 413px;
+}
   .login-container h2 {
     margin-bottom: 20px;
     text-align: center;
@@ -229,34 +261,34 @@
 #tripForm {
   padding: 20px;
   border-radius: 10px;
-  width: 80%;
+  width: 60%;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 10%;
+  margin-left: 20%;
 }
 
-.form-group {
+.tripForm-group {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
   width: 100%;
 }
 
-.form-group.inline {
+.tripForm-group.inline {
   display: flex;
   justify-content: space-between;
 }
 
-.form-item {
+.tripForm-item {
   display: flex;
   flex-direction: column;
   flex: 1;
   margin-left: 10px;
 }
 
-.form-item:first-child {
+.tripForm-item:first-child {
   margin-left: 0;
 }
 
