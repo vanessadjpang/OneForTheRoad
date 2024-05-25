@@ -24,7 +24,7 @@ model User {
 model Activities {
   id        Int       @id @default(autoincrement())
   time     DateTime
-  activity   String
+  events   String
   duration  Float
   address   String
   transport String

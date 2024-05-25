@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <input type="checkbox" id="reservation-${date}" name="reservation" value="">
             </div>
             <div class="activityForm-item">
-                <label for="additionalinformation-${date}">Additional Information</label>
+                <label for="additionalInformation-${date}">Additional Information</label>
                 <input type="text" id="additionalInformation-${date}" name="additionalinformation" value="">
             </div>
             <button type="button" class="btn-delete-activity">Delete</button>
