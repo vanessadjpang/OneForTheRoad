@@ -14,36 +14,36 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  username  String    @unique
-  password  String
-  emailAddress  String
-  createdAt DateTime @default(now())
+  id                    Int         @id @default(autoincrement())
+  username              String      @unique
+  password              String
+  emailAddress          String
+  createdAt             DateTime    @default(now())
 }
 
 model Activities {
-  id        Int       @id @default(autoincrement())
-  time     DateTime
-  events   String
-  duration  Float
-  address   String
-  transport String
-  additionalInformation  String
-  reservationRequired Boolean @default(false)
-  isDelete  Boolean @default(false)
-  updateAt  Boolean @default(false)
+  id                    Int         @id  @default(autoincrement())
+  time                  DateTime
+  events                String
+  duration              Float
+  address               String
+  transport             String
+  additionalInformation String
+  reservationRequired   Boolean     @default(false)
+  isDelete              Boolean     @default(false)
+  updateAt              Boolean     @default(false)
 }
 
 model Days {
-  id        Int       @id @default(autoincrement())
-  Date     DateTime
+  id                    Int         @id @default(autoincrement())
+  Date                  DateTime
 }
 
 model Itinerary {
-  id        Int       @id @default(autoincrement())
-  name     String
-  createdDate   DateTime  @default(now())
-  updatedAt DateTime @updatedAt
-  startDate   DateTime
-  endDate  DateTime
+  id                    Int         @id @default(autoincrement())
+  name                  String
+  createdDate           DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+  startDate             DateTime
+  endDate               DateTime
 }
