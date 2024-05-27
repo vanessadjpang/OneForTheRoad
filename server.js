@@ -56,17 +56,10 @@ app.get('/seoul', (req, res) => {
     res.render('seoul');
 });
 
-// Problem Statement page
-// app.get('/problemstatement', async function(req,res){
-//     //filter database
-//     const findUser = await prisma.coke.findMany({
-//         where: {
-//             name: 'Sprite',
-//         }
-//     });
-//     console.log(findUser); 
-//     res.render('problemstatement', { user: findUser });
-// });
+//Problem Statement page
+app.get('/problemstatement', async function(req,res){
+    res.render('problemstatement');
+});
 
 
 //Create users at signup page

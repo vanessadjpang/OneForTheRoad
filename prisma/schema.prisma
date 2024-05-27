@@ -25,7 +25,6 @@ model Activities {
   id                    Int         @id  @default(autoincrement())
   time                  DateTime
   events                String
-  duration              Float
   address               String
   transport             String
   additionalInformation String
