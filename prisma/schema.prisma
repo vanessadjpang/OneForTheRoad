@@ -23,14 +23,15 @@ model User {
 
 model Activities {
   id                    Int         @id  @default(autoincrement())
+  date                  DateTime
   time                  DateTime
-  events                String
-  address               String
-  transport             String
-  additionalInformation String
+  events                String?
+  address               String?
+  transportation        String?
+  additionalInformation String?
   reservationRequired   Boolean     @default(false)
   isDelete              Boolean     @default(false)
-  updateAt              Boolean     @default(false)
+  updateAt              DateTime    @updatedAt
 }
 
 model Days {

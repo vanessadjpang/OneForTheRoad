@@ -59,37 +59,38 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function createActivityForm(date) {
+        const activityFormContainer = document.getElementById('activityForm');
         const dateContainer = createDateContainer(date);
         const activityForm = document.createElement('form');
         activityForm.classList.add('activityForm');
 
         activityForm.innerHTML = `
-            <div class="activityForm-item">
-                <label for="events-${date}">Activity:</label>
-                <input type="text" id="events-${date}" name="events" value="">
-            </div>
-            <div class="activityForm-item">
-                <label for="time-${date}">Time:</label>
-                <input type="time" id="time-${date}" name="time" value="">
-            </div>
-            <div class="activityForm-item">
-                <label for="transportation-${date}">Transportation:</label>
-                <input type="text" id="transportation-${date}" name="transportation" value="">
-            </div>
-            <div class="activityForm-item">
-                <label for="address-${date}">Address:</label>
-                <input type="text" id="address-${date}" name="address" value="">
-            </div>
-            <div class="activityForm-item">
-                <label for="reservation-${date}">Reminder?</label>
-                <input type="checkbox" id="reservation-${date}" name="reservation" value="">
-            </div>
-            <div class="activityForm-item">
-                <label for="additionalInformation-${date}">Additional Information</label>
-                <input type="text" id="additionalInformation-${date}" name="additionalinformation" value="">
-            </div>
-            <button type="button" class="btn-delete-activity">Delete</button>
-        `;
+        <div class="activityForm-item">
+        <label for="events-${date}">Activity:</label>
+        <input type="text" id="events-${date}" name="events-${date}" value="">
+    </div>
+    <div class="activityForm-item">
+        <label for="time-${date}">Time:</label>
+        <input type="time" id="time-${date}" name="time-${date}" value="">
+    </div>
+    <div class="activityForm-item">
+        <label for="transportation-${date}">Transportation:</label>
+        <input type="text" id="transportation-${date}" name="transportation-${date}" value="">
+    </div>
+    <div class="activityForm-item">
+        <label for="address-${date}">Address:</label>
+        <input type="text" id="address-${date}" name="address-${date}" value="">
+    </div>
+    <div class="activityForm-item">
+        <label for="reservation-${date}">Reminder?</label>
+        <input type="checkbox" id="reservation-${date}" name="reservation-${date}" value="">
+    </div>
+    <div class="activityForm-item">
+        <label for="additionalInformation-${date}">Additional Information</label>
+        <input type="text" id="additionalInformation-${date}" name="additionalInformation-${date}" value="">
+    </div>
+    <button type="button" class="btn-delete-activity">Delete</button>
+`;
 
         activityForm.querySelector('.btn-delete-activity').addEventListener('click', function () {
             activityForm.remove();
@@ -111,7 +112,69 @@ document.addEventListener('DOMContentLoaded', function () {
         remindersHeader.style.display = 'block';
         remindersContainer.style.display = 'block';
         showExample.style.display = 'block';
+        submitActivities();
     });
+
+    function submitActivities() {
+        const activityForms = document.querySelectorAll('.activityForm');
+        let successfulSubmissions = 0;
+        let totalSubmissions = activityForms.length;
+        
+        activityForms.forEach(activityForm => {
+            const dateField = activityForm.querySelector('[id^="events-"]');
+            if (!dateField) {
+                console.error('Date field not found');
+                return;
+            }
+            const date = dateField.id.split('-')[1];
+            const events = activityForm.querySelector(`#events-${date}`)?.value || null;
+            const transportation = activityForm.querySelector(`#transportation-${date}`)?.value || null;
+            const address = activityForm.querySelector(`#address-${date}`)?.value;
+            const reservation = activityForm.querySelector(`#reservation-${date}`)?.checked || false;
+            const additionalInformation = activityForm.querySelector(`#additionalInformation-${date}`)?.value || null;
+            const timeValue = activityForm.querySelector(`#time-${date}`)?.value;
+            const time = timeValue ? new Date(`${date}T${timeValue}`) : new Date(date);
+
+
+
+            const data = {
+                date: date,
+                events,
+                transportation,
+                time: time.toISOString(),
+                address,
+                reservation,
+                additionalInformation
+            };
+    
+
+            fetch('/planner', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+                successfulSubmissions++;
+
+                // Check if all submissions are done
+                if (successfulSubmissions === totalSubmissions) {
+                    alert('All activities saved successfully!');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error.message);
+                alert('Failed to save activity: ' + error.message);
+            });
+        });
+    }
+
+
 
     addReminderButton.addEventListener('click', function () {
         addNewReminder();

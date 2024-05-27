@@ -118,3 +118,27 @@ app.post("/", async (req,res) => {
         return res.status(500).send({message:"Internal Server Error"});
     }
 });
+
+app.post('/planner', async (req, res) => {
+    const { date, events, transportation, time, address, reservation, additionalInformation } = req.body;
+    console.log('Received data:', req.body);
+
+    try {
+        const newEvent = await prisma.activities.create({
+            data: {
+                date: new Date(date),
+                events: events,
+                transportation: transportation,
+                time: new Date(time),
+                address: address,
+                reservationRequired: reservation,
+                additionalInformation: additionalInformation,
+            },
+        });
+        console.log('Activity saved:', newEvent);
+        res.status(201).json({ message: 'Activity created', activity: newEvent });
+    } catch (error) {
+        console.error('Error saving activity:', error.message);
+        res.status(500).json({ error: 'Failed to create activity' });
+    }
+});
