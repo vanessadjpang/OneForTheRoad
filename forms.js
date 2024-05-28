@@ -20,11 +20,12 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Clear previous activity forms, summaries, and reminders
+        // Clear previous activity forms, summaries, and reminders, not used now
         activityFormContainer.innerHTML = '';
         summaryContainer.innerHTML = '';
         remindersContainer.innerHTML = '';
 
+        //Creates date container based on number of days and activity form
         const days = (tripEnd - tripStart) / (1000 * 60 * 60 * 24) + 1;
         for (let i = 0; i < days; i++) {
             const currentDate = new Date(tripStart);
@@ -34,10 +35,11 @@ document.addEventListener('DOMContentLoaded', function () {
             createActivityForm(dateStr);
         }
 
-        // Make sure the "Generate Summary" button is visible
+        // To have the "Generate Summary" button visible
         generateSummaryButton.style.display = 'block';
     });
 
+    //Date container features to create new activity under each day
     function createDateContainer(date) {
         let dateContainer = document.getElementById(`date-container-${date}`);
         if (!dateContainer) {
@@ -58,6 +60,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return dateContainer;
     }
 
+
+    // activityForm function
     function createActivityForm(date) {
         const activityFormContainer = document.getElementById('activityForm');
         const dateContainer = createDateContainer(date);
@@ -66,32 +70,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
         activityForm.innerHTML = `
         <div class="activityForm-item">
-        <label for="events-${date}">Activity:</label>
-        <input type="text" id="events-${date}" name="events-${date}" value="">
-    </div>
-    <div class="activityForm-item">
-        <label for="time-${date}">Time:</label>
-        <input type="time" id="time-${date}" name="time-${date}" value="">
-    </div>
-    <div class="activityForm-item">
-        <label for="transportation-${date}">Transportation:</label>
-        <input type="text" id="transportation-${date}" name="transportation-${date}" value="">
-    </div>
-    <div class="activityForm-item">
-        <label for="address-${date}">Address:</label>
-        <input type="text" id="address-${date}" name="address-${date}" value="">
-    </div>
-    <div class="activityForm-item">
-        <label for="reservation-${date}">Reminder?</label>
-        <input type="checkbox" id="reservation-${date}" name="reservation-${date}" value="">
-    </div>
-    <div class="activityForm-item">
-        <label for="additionalInformation-${date}">Additional Information</label>
-        <input type="text" id="additionalInformation-${date}" name="additionalInformation-${date}" value="">
-    </div>
-    <button type="button" class="btn-delete-activity">Delete</button>
-`;
+            <label for="events-${date}">Activity:</label>
+            <input type="text" id="events-${date}" name="events-${date}" value="">
+            </div>
+        <div class="activityForm-item">
+            <label for="time-${date}">Time:</label>
+            <input type="time" id="time-${date}" name="time-${date}" value="">
+        </div>
+        <div class="activityForm-item">
+            <label for="transportation-${date}">Transportation:</label>
+            <input type="text" id="transportation-${date}" name="transportation-${date}" value="">
+        </div>
+        <div class="activityForm-item">
+            <label for="address-${date}">Address:</label>
+            <input type="text" id="address-${date}" name="address-${date}" value="">
+        </div>
+        <div class="activityForm-item">
+            <label for="reservation-${date}">Reminder?</label>
+            <input type="checkbox" id="reservation-${date}" name="reservation-${date}" value="">
+        </div>
+        <div class="activityForm-item">
+            <label for="additionalInformation-${date}">Additional Information</label>
+            <input type="text" id="additionalInformation-${date}" name="additionalInformation-${date}" value="">
+        </div>
+        <button type="button" class="btn-delete-activity">Delete</button>
+        `;
 
+        // Delete activity form button feature
         activityForm.querySelector('.btn-delete-activity').addEventListener('click', function () {
             activityForm.remove();
             // Check if there are no activity forms left, and hide the date container if empty
@@ -99,7 +104,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 dateContainer.querySelector('.btn-new-activity').style.display = 'block';
             }
         });
-
         const newActivityButton = dateContainer.querySelector('.btn-new-activity');
         dateContainer.insertBefore(activityForm, newActivityButton);
     }
@@ -115,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
         submitActivities();
     });
 
+    // submitActivities function for database, not working now.
     function submitActivities() {
         const activityForms = document.querySelectorAll('.activityForm');
         let successfulSubmissions = 0;
@@ -134,9 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const additionalInformation = activityForm.querySelector(`#additionalInformation-${date}`)?.value || null;
             const timeValue = activityForm.querySelector(`#time-${date}`)?.value;
             const time = timeValue ? new Date(`${date}T${timeValue}`) : new Date(date);
-
-
-
             const data = {
                 date: date,
                 events,
@@ -146,8 +148,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 reservation,
                 additionalInformation
             };
-    
-
+            
+            // To let database know where to get the data from
             fetch('/planner', {
                 method: 'POST',
                 headers: {
@@ -175,9 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
-
-
+    // generateSummary function based on activityForm inputs
     function generateSummary() {
         summaryContainer.innerHTML = ''; // Clear previous summary
 
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const reservation = activityForm.querySelector(`#reservation-${date}`).checked ? 'Yes' : '';
                     const additionalInformation = activityForm.querySelector(`#additionalInformation-${date}`).value;
 
-                    // Build the summary item only if fields are filled
+                    // Build the summary item only if fields are filled, to keep null inputs as empty
                     activitySummary.innerHTML = `
                         ${activity ? `<p><strong>Activity:</strong> ${activity}</p>` : ''}
                         ${time ? `<p><strong>Time:</strong> ${time}</p>` : ''}
@@ -222,6 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+   // generateReminders function 
     function generateReminders() {
         remindersContainer.innerHTML = ''; // Clear previous reminders
 
@@ -239,6 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // reminders feature
     function createReminderElement(date, activityForm) {
         const reminder = document.createElement('div');
         reminder.classList.add('reminder');

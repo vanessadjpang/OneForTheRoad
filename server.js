@@ -66,6 +66,7 @@ app.get('/problemstatement', async function(req,res){
 app.post("/signup", async (req, res) => {
     const { username, password, emailAddress} = req.body;
     try {
+        //To hash password at signup and database
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt);
     
@@ -119,6 +120,7 @@ app.post("/", async (req,res) => {
     }
 });
 
+// For planner page's ativityForm data
 app.post('/planner', async (req, res) => {
     const { date, events, transportation, time, address, reservation, additionalInformation } = req.body;
     console.log('Received data:', req.body);

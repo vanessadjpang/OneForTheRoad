@@ -1,3 +1,4 @@
+// Start of script to extract data from user input
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('loginForm').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Username:', username);
     console.log('Password:', password);
 
+    // To verify registration data from backend
     try {
     const response = await fetch('/', {
         method: 'POST',

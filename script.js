@@ -1,5 +1,4 @@
 
-
 //sidebar for itinerary page
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
@@ -7,6 +6,7 @@ function toggleSidebar() {
     sidebar.classList.toggle('visible');
     content.classList.toggle('shifted');
 }
+
 // Add event listener for the sidebar menu
 document.querySelector('.sidebar').addEventListener('click', toggleSidebar);
 
@@ -56,8 +56,7 @@ document.getElementById('exportPDF').addEventListener('click', () => {
     });
   });
 
-    //Countdown timer fake
-
+    //Countdown timer feater
     function countdownTimer(targetDate) {
         const countdownElement = document.getElementById('countdown');
         const daysElement = document.getElementById('days');
@@ -89,7 +88,7 @@ document.getElementById('exportPDF').addEventListener('click', () => {
         const interval = setInterval(updateCountdown, 1000);
     }
 
-// Initialize the countdown timer
+// Initialize the countdown timer hardcoded
 const targetDate = new Date('December 25, 2024 00:00:00');
 countdownTimer(targetDate);
 ;
@@ -182,6 +181,7 @@ countdownTimer(targetDate);
         // Initial sorting
         sortReminders();
 }
+
 // Function to handle reminder completion
 function handleReminderCompletion(item, isCompleted) {
     if (isCompleted) {
