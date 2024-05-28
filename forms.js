@@ -1,3 +1,4 @@
+//Start of script to define the functions
 document.addEventListener('DOMContentLoaded', function () {
     const tripForm = document.getElementById('tripForm');
     const activityFormContainer = document.getElementById('activityForm');
@@ -5,9 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const remindersContainer = document.getElementById('remindersContainer');
     const remindersHeader = document.getElementById('remindersHeader');
     const generateSummaryButton = document.getElementById('generateSummaryButton');
-    const addReminderButton = document.getElementById('addReminderButton');
     const showExample = document.getElementById('showExample');
 
+    //tripForm function
     tripForm.addEventListener('submit', function (event) {
         event.preventDefault();
         
@@ -35,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Make sure the "Generate Summary" button is visible
         generateSummaryButton.style.display = 'block';
-        addReminderButton.style.display = 'block';
     });
 
     function createDateContainer(date) {
@@ -176,9 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    addReminderButton.addEventListener('click', function () {
-        addNewReminder();
-    });
+
 
     function generateSummary() {
         summaryContainer.innerHTML = ''; // Clear previous summary
@@ -270,25 +268,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return reminder;
     }
 
-    function addNewReminder() {
-        const reminder = document.createElement('div');
-        reminder.classList.add('reminder');
-
-        reminder.innerHTML = `
-            <input type="checkbox" class="reminder-checkbox">
-            <p><strong>Date:</strong> <input type="date" class="reminder-date"></p>
-            <p><strong>Activity:</strong> <input type="text" class="reminder-activity"></p>
-            <p><strong>Additional Information:</strong> <input type="text" class="reminder-info"></p>
-        `;
-
-        reminder.querySelector('.reminder-checkbox').addEventListener('change', function () {
-            if (this.checked) {
-                reminder.style.textDecoration = 'line-through';
-            } else {
-                reminder.style.textDecoration = 'none';
-            }
-        });
-
         remindersContainer.appendChild(reminder);
     }
-});
+);
